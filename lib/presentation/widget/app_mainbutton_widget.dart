@@ -1,3 +1,4 @@
+import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +41,8 @@ class _AppMainButtonWidgetState extends State<AppMainButtonWidget> {
         onPressed: widget.onPressed,
         style: ElevatedButton.styleFrom(
           // primary: widget.color ?? const Color.fromARGB(255, 17, 124, 163),
-          backgroundColor: widget.color ?? const Color.fromARGB(255, 17, 124, 163),
+          // backgroundColor: widget.color ?? const Color.fromARGB(255, 17, 124, 163),
+          backgroundColor: widget.color ?? AppColor.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.radius),
           ),
