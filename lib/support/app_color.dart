@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  // static const primary = Color(0xff262626);
-  static const primary = Color.fromARGB(255, 17, 124, 163);
+  static const primary = Color(0xff1c6a73);
+  // static const primary = Color.fromARGB(255, 17, 124, 163);
   static const secondary = Color.fromARGB(255, 225, 173, 15);
   static const text_1 = Color(0xff111111);
   static const shape = Color(0xfff5f6f8);
@@ -26,9 +26,9 @@ class AppColor {
   static const purple = Color(0xff6d3c7e);
   static const yellow = Color(0xfff7b500);
 
-  // QOIN UE
-  static const qoinPrimary = Colors.black;
-  static const qoinSecondary = Color(0xfff7b500);
+  // EX UE
+  static const exPrimary = Colors.black;
+  static const exSecondary = Color(0xfff7b500);
 
   // OTHER
   static const ColorFilter greyscale = ColorFilter.matrix(<double>[

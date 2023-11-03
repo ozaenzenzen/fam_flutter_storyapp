@@ -103,7 +103,6 @@ class AppApiService {
         (e.response?.data as Map).addAll(<String, dynamic>{
           "status": "error",
         });
-        // qoin.QoinSdk.defaultErrorHandler(e.response!);
         return e.response!;
       } else {
         Response response = Response(
@@ -114,7 +113,6 @@ class AppApiService {
           requestOptions: e.requestOptions,
           statusCode: e.response?.statusCode,
         );
-        // qoin.QoinSdk.defaultErrorHandler(response);
         return response;
       }
     }
