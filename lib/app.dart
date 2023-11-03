@@ -1,4 +1,4 @@
-import 'package:fam_flutter_storyapp/presentation/main_page.dart';
+import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatefulWidget {
