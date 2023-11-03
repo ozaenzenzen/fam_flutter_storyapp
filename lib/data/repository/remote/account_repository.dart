@@ -23,7 +23,7 @@ class AccountRepository {
     }
   }
 
-  Future<RegisterResponseModel?> signup(RegisterRequestModel data) async {
+  Future<RegisterResponseModel?> register(RegisterRequestModel data) async {
     try {
       final response = await AppApiService(
         EnvironmentConfig.baseUrl(),
