@@ -17,10 +17,10 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController nameTextFieldController = TextEditingController(text: "");
   TextEditingController emailTextFieldController = TextEditingController(text: "");
   TextEditingController passwordTextFieldController = TextEditingController(text: "");
-  TextEditingController confirmPasswordTextFieldController = TextEditingController(text: "");
+  // TextEditingController confirmPasswordTextFieldController = TextEditingController(text: "");
 
   bool showPassword = true;
-  bool showConfirmPassword = true;
+  // bool showConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -78,24 +78,24 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10.h),
-                AppTextFieldWidget(
-                  textFieldTitle: "Confirm Password",
-                  textFieldHintText: "Confirm Password",
-                  controller: confirmPasswordTextFieldController,
-                  obscureText: showConfirmPassword,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showConfirmPassword = !showConfirmPassword;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.remove_red_eye,
-                      color: showConfirmPassword ? AppColor.disabled : AppColor.primary,
-                    ),
-                  ),
-                ),
+                // SizedBox(height: 10.h),
+                // AppTextFieldWidget(
+                //   textFieldTitle: "Confirm Password",
+                //   textFieldHintText: "Confirm Password",
+                //   controller: confirmPasswordTextFieldController,
+                //   obscureText: showConfirmPassword,
+                //   suffixIcon: IconButton(
+                //     onPressed: () {
+                //       setState(() {
+                //         showConfirmPassword = !showConfirmPassword;
+                //       });
+                //     },
+                //     icon: Icon(
+                //       Icons.remove_red_eye,
+                //       color: showConfirmPassword ? AppColor.disabled : AppColor.primary,
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 20.h),
                 AppMainButtonWidget(
                   onPressed: () {
