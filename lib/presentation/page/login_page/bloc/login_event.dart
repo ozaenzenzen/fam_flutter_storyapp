@@ -5,5 +5,9 @@ sealed class LoginEvent {}
 
 final class ActionLogin extends LoginEvent {
   final LoginRequestModel loginRequestModel;
-  ActionLogin({required this.loginRequestModel});
+  final AccountRepository accountRepository;
+  ActionLogin({
+    required this.loginRequestModel,
+    required this.accountRepository,
+  });
 }
