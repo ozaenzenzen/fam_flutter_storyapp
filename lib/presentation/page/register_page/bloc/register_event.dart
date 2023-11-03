@@ -5,5 +5,9 @@ sealed class RegisterEvent {}
 
 final class ActionRegister extends RegisterEvent {
   final RegisterRequestModel registerRequestModel;
-  ActionRegister({required this.registerRequestModel});
+  final AccountRepository accountRepository;
+  ActionRegister({
+    required this.registerRequestModel,
+    required this.accountRepository,
+  });
 }
