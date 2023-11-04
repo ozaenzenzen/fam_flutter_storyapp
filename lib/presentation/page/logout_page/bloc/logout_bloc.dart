@@ -18,7 +18,10 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
 
   Future<void> actionLogoutFunc(ActionLogout actionLogout) async {
     try {
-      await LocalRepository.removeUserData().then((_) {
+      Future.microtask(() async {
+        await LocalRepository.removeUserData();
+        await LocalRepository.setIsLogin(false);
+      }).then((value) {
         emit(LogoutSuccess());
       }).catchError((error) {
         emit(LogoutFailed(errorMessage: error.toString()));
