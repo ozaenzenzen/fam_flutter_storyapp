@@ -1,6 +1,7 @@
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
+import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/bloc/register_bloc.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +27,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('isLogin $isLogin');
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(),
         ),
         BlocProvider(
           create: (context) => RegisterBloc(),
