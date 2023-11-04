@@ -48,4 +48,12 @@ class LocalRepository {
       debugPrint('error setUserData $e');
     }
   }
+
+  static Future<void> removeUserData() async {
+    try {
+      await FlutterKeychain.remove(key: 'userData');
+    } catch (e) {
+      debugPrint('error setUserData $e');
+    }
+  }
 }
