@@ -1,6 +1,7 @@
 import 'package:fam_flutter_storyapp/data/model/request/register_request_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/register_page/show_password_register_bloc/show_password_register_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_screen_loading_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_textfield_widget.dart';
@@ -68,22 +69,42 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: emailTextFieldController,
                     ),
                     SizedBox(height: 10.h),
-                    AppTextFieldWidget(
-                      textFieldTitle: "Password",
-                      textFieldHintText: "Password",
-                      controller: passwordTextFieldController,
-                      obscureText: showPassword,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            showPassword = !showPassword;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.remove_red_eye,
-                          color: showPassword ? AppColor.disabled : AppColor.primary,
-                        ),
-                      ),
+                    BlocBuilder<ShowPasswordRegisterBloc, ShowPasswordRegisterState>(
+                      builder: (context, state) {
+                        if (state is ShowPasswordRegisterFalse) {
+                          return AppTextFieldWidget(
+                            textFieldTitle: "Password",
+                            textFieldHintText: "Password",
+                            controller: passwordTextFieldController,
+                            obscureText: true,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                context.read<ShowPasswordRegisterBloc>().add(ActionShowPasswordRegister(value: false));
+                              },
+                              icon: const Icon(
+                                Icons.remove_red_eye,
+                                color: AppColor.disabled,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return AppTextFieldWidget(
+                            textFieldTitle: "Password",
+                            textFieldHintText: "Password",
+                            controller: passwordTextFieldController,
+                            obscureText: false,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                context.read<ShowPasswordRegisterBloc>().add(ActionShowPasswordRegister(value: true));
+                              },
+                              icon: const Icon(
+                                Icons.remove_red_eye,
+                                color: AppColor.primary,
+                              ),
+                            ),
+                          );
+                        }
+                      },
                     ),
                     SizedBox(height: 20.h),
                     AppMainButtonWidget(
