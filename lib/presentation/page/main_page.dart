@@ -14,14 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _counter = 0;
-
-  void incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<LogoutBloc, LogoutState>(
@@ -46,20 +38,7 @@ class _MainPageState extends State<MainPage> {
           appBar: const AppAppBarWidget(
             title: 'FAM - Story App',
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ],
-            ),
-          ),
+          body: Container(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           floatingActionButton: Column(
             mainAxisSize: MainAxisSize.min,
