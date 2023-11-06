@@ -66,6 +66,7 @@ class _MainPageState extends State<MainPage> {
             children: [
               FloatingActionButton(
                 // onPressed: incrementCounter,
+                heroTag: "btn1",
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -81,6 +82,7 @@ class _MainPageState extends State<MainPage> {
               ),
               SizedBox(height: 20.h),
               FloatingActionButton(
+                heroTag: "btn2",
                 onPressed: () {
                   context.read<LogoutBloc>().add(ActionLogout());
                 },
