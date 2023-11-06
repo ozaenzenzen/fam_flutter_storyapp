@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:fam_flutter_storyapp/support/app_image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 
 part 'add_story_pick_image_event.dart';
@@ -20,7 +21,7 @@ class AddStoryPickImageBloc extends Bloc<AddStoryPickImageEvent, AddStoryPickIma
 
   Future<void> actionPickImageFunc(ActionPickImage event) async {
     try {
-      File? output = await AppImagePickerService.getImageAsFile();
+      File? output = await AppImagePickerService.getImageAsFile(event.type);
       if (output != null) {
         emit(AddStoryPickImageSuccess(output: output));
       } else {
