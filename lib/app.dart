@@ -51,16 +51,10 @@ class _MyAppState extends State<MyApp> {
           create: (context) => ShowPasswordRegisterBloc(),
         ),
         BlocProvider(
-          create: (context) => AddStoryBloc(),
-        ),
-        BlocProvider(
           create: (context) => GetAllStoryBloc(),
         ),
         BlocProvider(
           create: (context) => GetDetailStoryBloc(),
-        ),
-        BlocProvider(
-          create: (context) => AddStoryPickImageBloc(),
         ),
       ],
       child: ScreenUtilInit(
