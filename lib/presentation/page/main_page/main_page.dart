@@ -54,6 +54,7 @@ class _MainPageState extends State<MainPage> {
               context.read<GetAllStoryBloc>().add(ActionGetAllStory());
             },
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: 16.w,
@@ -168,7 +169,14 @@ class _MainPageState extends State<MainPage> {
                         },
                       );
                     } else {
-                      return const SizedBox();
+                      // return const SizedBox();
+                      return Container(
+                        // height: 300.h,
+                        // color: Colors.blue,
+                        color: Colors.transparent,
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                      );
                     }
                   },
                 ),
