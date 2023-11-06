@@ -1,4 +1,3 @@
-import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_bloc/add_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/check_islogin_bloc/check_islogin_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
@@ -11,8 +10,6 @@ import 'package:fam_flutter_storyapp/presentation/page/register_page/show_passwo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'presentation/page/add_story_page/add_story_pick_image_bloc/add_story_pick_image_bloc.dart';
 import 'presentation/page/detail_story_page/get_detail_story_bloc/get_detail_story_bloc.dart';
 
 class MyApp extends StatefulWidget {
