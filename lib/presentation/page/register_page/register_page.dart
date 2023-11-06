@@ -85,24 +85,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    // SizedBox(height: 10.h),
-                    // AppTextFieldWidget(
-                    //   textFieldTitle: "Confirm Password",
-                    //   textFieldHintText: "Confirm Password",
-                    //   controller: confirmPasswordTextFieldController,
-                    //   obscureText: showConfirmPassword,
-                    //   suffixIcon: IconButton(
-                    //     onPressed: () {
-                    //       setState(() {
-                    //         showConfirmPassword = !showConfirmPassword;
-                    //       });
-                    //     },
-                    //     icon: Icon(
-                    //       Icons.remove_red_eye,
-                    //       color: showConfirmPassword ? AppColor.disabled : AppColor.primary,
-                    //     ),
-                    //   ),
-                    // ),
                     SizedBox(height: 20.h),
                     AppMainButtonWidget(
                       onPressed: () {
