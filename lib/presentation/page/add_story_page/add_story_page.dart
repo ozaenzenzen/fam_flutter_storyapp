@@ -32,6 +32,17 @@ class _AddStoryPageState extends State<AddStoryPage> {
   TextEditingController descriptionTextFieldController = TextEditingController();
   File? imageChosen;
 
+  late AddStoryPickImageBloc addStoryPickImageBloc;
+  late AddStoryBloc addStoryBloc;
+
+  @override
+  void initState() {
+    addStoryPickImageBloc = AddStoryPickImageBloc();
+    addStoryBloc = AddStoryBloc();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -51,73 +62,76 @@ class _AddStoryPageState extends State<AddStoryPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        context.read<AddStoryPickImageBloc>().add(ActionPickImage());
+                        addStoryPickImageBloc.add(ActionPickImage());
                       },
-                      child: BlocBuilder<AddStoryPickImageBloc, AddStoryPickImageState>(
-                        builder: (context, state) {
-                          if (state is AddStoryPickImageSuccess) {
-                            return Image.memory(
-                              state.output.readAsBytesSync(),
-                              height: 160.h,
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.cover,
-                            );
-                          } else if (state is AddStoryPickImageLoading) {
-                            return SkeletonLine(
-                              style: SkeletonLineStyle(
+                      child: BlocProvider(
+                        create: (context) => addStoryPickImageBloc,
+                        child: BlocBuilder<AddStoryPickImageBloc, AddStoryPickImageState>(
+                          builder: (context, state) {
+                            if (state is AddStoryPickImageSuccess) {
+                              return Image.memory(
+                                state.output.readAsBytesSync(),
                                 height: 160.h,
                                 width: MediaQuery.of(context).size.width,
-                              ),
-                            );
-                          } else {
-                            return DottedBorder(
-                              radius: const Radius.circular(20),
-                              dashPattern: const [7, 3],
-                              strokeWidth: 2,
-                              color: AppColor.blue,
-                              child: Container(
-                                height: 200.h,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: AppColor.border,
-                                  borderRadius: BorderRadius.circular(6),
+                                fit: BoxFit.cover,
+                              );
+                            } else if (state is AddStoryPickImageLoading) {
+                              return SkeletonLine(
+                                style: SkeletonLineStyle(
+                                  height: 160.h,
+                                  width: MediaQuery.of(context).size.width,
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.file_upload_outlined,
-                                      size: 24.h,
-                                      color: AppColor.blue,
-                                    ),
-                                    SizedBox(width: 18.h),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Browse File",
-                                          style: GoogleFonts.inter(
-                                            decoration: TextDecoration.underline,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColor.blue,
+                              );
+                            } else {
+                              return DottedBorder(
+                                radius: const Radius.circular(20),
+                                dashPattern: const [7, 3],
+                                strokeWidth: 2,
+                                color: AppColor.blue,
+                                child: Container(
+                                  height: 200.h,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.border,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.file_upload_outlined,
+                                        size: 24.h,
+                                        color: AppColor.blue,
+                                      ),
+                                      SizedBox(width: 18.h),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Browse File",
+                                            style: GoogleFonts.inter(
+                                              decoration: TextDecoration.underline,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColor.blue,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(height: 6.h),
-                                        Text(
-                                          "Format dokumen .jpg",
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.disabled,
+                                          SizedBox(height: 6.h),
+                                          Text(
+                                            "Format dokumen .jpg",
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.disabled,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(height: 40.h),
@@ -128,63 +142,66 @@ class _AddStoryPageState extends State<AddStoryPage> {
                       maxLines: 6,
                     ),
                     SizedBox(height: 20.h),
-                    BlocBuilder<AddStoryPickImageBloc, AddStoryPickImageState>(
-                      builder: (context, state) {
-                        if (state is AddStoryPickImageSuccess) {
-                          imageChosen = state.output;
-                          return AppMainButtonWidget(
-                            onPressed: () {
-                              if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
-                                AppDialogAction.showFailedPopup(
-                                  context: context,
-                                  title: "Something's wrong",
-                                  description: "Some field required is not filled",
-                                  buttonTitle: "Back",
-                                );
-                              } else {
-                                context.read<AddStoryBloc>().add(
-                                      ActionAddStory(
-                                        addStoryRequestModel: AddStoryRequestModel(
-                                          description: descriptionTextFieldController.text,
-                                          // photo: MultipartFile.fromBytes(imageChosen!.path.codeUnits),
-                                          photo: imageChosen!,
-                                          lat: -6.3343434,
-                                          lon: -6.3343434,
-                                        ),
+                    BlocProvider(
+                      create: (context) => addStoryPickImageBloc,
+                      child: BlocBuilder<AddStoryPickImageBloc, AddStoryPickImageState>(
+                        builder: (context, state) {
+                          if (state is AddStoryPickImageSuccess) {
+                            imageChosen = state.output;
+                            return AppMainButtonWidget(
+                              onPressed: () {
+                                if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
+                                  AppDialogAction.showFailedPopup(
+                                    context: context,
+                                    title: "Something's wrong",
+                                    description: "Some field required is not filled",
+                                    buttonTitle: "Back",
+                                  );
+                                } else {
+                                  addStoryBloc.add(
+                                    ActionAddStory(
+                                      addStoryRequestModel: AddStoryRequestModel(
+                                        description: descriptionTextFieldController.text,
+                                        // photo: MultipartFile.fromBytes(imageChosen!.path.codeUnits),
+                                        photo: imageChosen!,
+                                        lat: -6.3343434,
+                                        lon: -6.3343434,
                                       ),
-                                    );
-                              }
-                            },
-                            text: "Submit",
-                          );
-                        } else {
-                          return AppMainButtonWidget(
-                            onPressed: () {
-                              if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
-                                AppDialogAction.showFailedPopup(
-                                  context: context,
-                                  title: "Something's wrong",
-                                  description: "Some field required is not filled",
-                                  buttonTitle: "Back",
-                                );
-                              } else {
-                                context.read<AddStoryBloc>().add(
-                                      ActionAddStory(
-                                        addStoryRequestModel: AddStoryRequestModel(
-                                          description: descriptionTextFieldController.text,
-                                          // photo: MultipartFile.fromBytes(imageChosen!.path.codeUnits),
-                                          photo: imageChosen!,
-                                          lat: -6.3343434,
-                                          lon: -6.3343434,
-                                        ),
+                                    ),
+                                  );
+                                }
+                              },
+                              text: "Submit",
+                            );
+                          } else {
+                            return AppMainButtonWidget(
+                              onPressed: () {
+                                if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
+                                  AppDialogAction.showFailedPopup(
+                                    context: context,
+                                    title: "Something's wrong",
+                                    description: "Some field required is not filled",
+                                    buttonTitle: "Back",
+                                  );
+                                } else {
+                                  addStoryBloc.add(
+                                    ActionAddStory(
+                                      addStoryRequestModel: AddStoryRequestModel(
+                                        description: descriptionTextFieldController.text,
+                                        // photo: MultipartFile.fromBytes(imageChosen!.path.codeUnits),
+                                        photo: imageChosen!,
+                                        lat: -6.3343434,
+                                        lon: -6.3343434,
                                       ),
-                                    );
-                              }
-                            },
-                            text: "Submit",
-                          );
-                        }
-                      },
+                                    ),
+                                  );
+                                }
+                              },
+                              text: "Submit",
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -198,27 +215,30 @@ class _AddStoryPageState extends State<AddStoryPage> {
   }
 
   Widget loadingState() {
-    return BlocConsumer<AddStoryBloc, AddStoryState>(
-      builder: (context, state) {
-        if (state is AddStoryLoading) {
-          return const AppScreenLoadingWidget();
-        } else {
-          return const SizedBox();
-        }
-      },
-      listener: (context, state) {
-        if (state is AddStoryFailed) {
-          AppDialogAction.showFailedPopup(
-            context: context,
-            title: "Something's wrong",
-            description: state.errorMessage,
-            buttonTitle: "Back",
-          );
-        }
-        if (state is AddStorySuccess) {
-          widget.actionCallback?.call();
-        }
-      },
+    return BlocProvider(
+      create: (context) => addStoryBloc,
+      child: BlocConsumer<AddStoryBloc, AddStoryState>(
+        builder: (context, state) {
+          if (state is AddStoryLoading) {
+            return const AppScreenLoadingWidget();
+          } else {
+            return const SizedBox();
+          }
+        },
+        listener: (context, state) {
+          if (state is AddStoryFailed) {
+            AppDialogAction.showFailedPopup(
+              context: context,
+              title: "Something's wrong",
+              description: state.errorMessage,
+              buttonTitle: "Back",
+            );
+          }
+          if (state is AddStorySuccess) {
+            widget.actionCallback?.call();
+          }
+        },
+      ),
     );
   }
 }
