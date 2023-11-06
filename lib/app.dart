@@ -1,3 +1,4 @@
+import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/check_islogin_bloc/check_islogin_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
@@ -5,6 +6,7 @@ import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/register_page/register_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/show_password_register_bloc/show_password_register_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,6 +73,34 @@ class _MyAppState extends State<MyApp> {
                 }
               },
             ),
+            // home: Navigator(
+            //   pages: const [
+            //     MaterialPage(
+            //       key: ValueKey("MainPage"),
+            //       child: MainPage(),
+            //     ),
+            //     MaterialPage(
+            //       key: ValueKey("LoginPage"),
+            //       child: LoginPage(),
+            //     ),
+            //     MaterialPage(
+            //       key: ValueKey("RegisterPage"),
+            //       child: RegisterPage(),
+            //     ),
+            //     MaterialPage(
+            //       key: ValueKey("AddStoryPage"),
+            //       child: AddStoryPage(),
+            //     ),
+            //   ],
+            //   onPopPage: (route, result) {
+            //     final didPop = route.didPop(result);
+            //     if (!didPop) {
+            //       return false;
+            //     }
+
+            //     return true;
+              // },
+            // ),
           );
         },
       ),
