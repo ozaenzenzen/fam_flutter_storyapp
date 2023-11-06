@@ -38,74 +38,76 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
           horizontal: 16.w,
           vertical: 16.w,
         ),
-        child: Column(
-          children: [
-            BlocBuilder<GetDetailStoryBloc, GetDetailStoryState>(
-              builder: (context, state) {
-                if (state is GetDetailStoryLoading) {
-                  return SkeletonLine(
-                    style: SkeletonLineStyle(
-                      height: 150.h,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              BlocBuilder<GetDetailStoryBloc, GetDetailStoryState>(
+                builder: (context, state) {
+                  if (state is GetDetailStoryLoading) {
+                    return SkeletonLine(
+                      style: SkeletonLineStyle(
+                        height: 150.h,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    );
+                  } else if (state is GetDetailStorySuccess) {
+                    return Image.network(
+                      "${state.getDetailStoryResponseModel.story?.photoUrl}",
+                      // height: 150.h,
                       width: MediaQuery.of(context).size.width,
-                    ),
-                  );
-                } else if (state is GetDetailStorySuccess) {
-                  return Image.network(
-                    "${state.getDetailStoryResponseModel.story?.photoUrl}",
-                    // height: 150.h,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-            SizedBox(height: 20.h),
-            BlocBuilder<GetDetailStoryBloc, GetDetailStoryState>(
-              builder: (context, state) {
-                if (state is GetDetailStoryLoading) {
-                  return SkeletonLine(
-                    style: SkeletonLineStyle(
-                      height: 40.h,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                  );
-                } else if (state is GetDetailStorySuccess) {
-                  return Text(
-                    '${state.getDetailStoryResponseModel.story?.name}',
-                    style: GoogleFonts.inter(
-                      fontSize: 18.sp,
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-            SizedBox(height: 10.h),
-            BlocBuilder<GetDetailStoryBloc, GetDetailStoryState>(
-              builder: (context, state) {
-                if (state is GetDetailStoryLoading) {
-                  return SkeletonLine(
-                    style: SkeletonLineStyle(
-                      height: 40.h,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                  );
-                } else if (state is GetDetailStorySuccess) {
-                  return Text(
-                    '${state.getDetailStoryResponseModel.story?.description}',
-                    style: GoogleFonts.inter(
-                      fontSize: 18.sp,
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-          ],
+                      fit: BoxFit.cover,
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+              SizedBox(height: 20.h),
+              BlocBuilder<GetDetailStoryBloc, GetDetailStoryState>(
+                builder: (context, state) {
+                  if (state is GetDetailStoryLoading) {
+                    return SkeletonLine(
+                      style: SkeletonLineStyle(
+                        height: 40.h,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    );
+                  } else if (state is GetDetailStorySuccess) {
+                    return Text(
+                      '${state.getDetailStoryResponseModel.story?.name}',
+                      style: GoogleFonts.inter(
+                        fontSize: 18.sp,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+              SizedBox(height: 10.h),
+              BlocBuilder<GetDetailStoryBloc, GetDetailStoryState>(
+                builder: (context, state) {
+                  if (state is GetDetailStoryLoading) {
+                    return SkeletonLine(
+                      style: SkeletonLineStyle(
+                        height: 40.h,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    );
+                  } else if (state is GetDetailStorySuccess) {
+                    return Text(
+                      '${state.getDetailStoryResponseModel.story?.description}',
+                      style: GoogleFonts.inter(
+                        fontSize: 18.sp,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
