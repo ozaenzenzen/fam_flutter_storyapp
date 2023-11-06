@@ -29,7 +29,9 @@ class AppImagePickerService {
     try {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery,
-        imageQuality: 10,
+        imageQuality: 50,
+        maxHeight: 400,
+        maxWidth: 400,
       );
       File fileFormat = File(image!.path);
       return fileFormat;
