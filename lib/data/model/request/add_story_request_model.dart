@@ -1,8 +1,10 @@
+import 'dart:io';
+
 class AddStoryRequestModel {
-  bool description;
-  String photo;
-  String lat;
-  String lon;
+  String description;
+  File photo;
+  double lat;
+  double lon;
 
   AddStoryRequestModel({
     required this.description,
