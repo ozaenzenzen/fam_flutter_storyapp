@@ -119,6 +119,18 @@ class _MainPageState extends State<MainPage> {
                                     height: 150.h,
                                     width: MediaQuery.of(context).size.width,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return SizedBox(
+                                        height: 160.h,
+                                        child: Center(
+                                          child: Text(
+                                            "Something's wrong, please reload",
+                                            style: GoogleFonts.inter(),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                   // SizedBox(height: 5.h),
                                   Container(

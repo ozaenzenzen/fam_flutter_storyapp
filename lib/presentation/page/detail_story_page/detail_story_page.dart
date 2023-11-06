@@ -56,6 +56,18 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
                       // height: 150.h,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return SizedBox(
+                          height: 160.h,
+                          child: Center(
+                            child: Text(
+                              "Something's wrong, please reload",
+                              style: GoogleFonts.inter(),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      },
                     );
                   } else {
                     return const SizedBox();
