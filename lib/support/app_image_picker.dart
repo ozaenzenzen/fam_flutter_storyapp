@@ -25,10 +25,11 @@ class AppImagePickerService {
     }
   }
 
-   static Future<File?> getImageAsFile() async {
+   static Future<File?> getImageAsFile(ImageSource imageSource) async {
     try {
       final XFile? image = await _picker.pickImage(
-        source: ImageSource.gallery,
+        // source: ImageSource.gallery,
+        source: imageSource,
         imageQuality: 50,
         maxHeight: 400,
         maxWidth: 400,
