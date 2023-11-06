@@ -1,5 +1,7 @@
+import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +16,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void incrementCounter() {
     setState(() {
       _counter++;
     });
@@ -41,8 +43,8 @@ class _MainPageState extends State<MainPage> {
           return false;
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('FAM - Story App'),
+          appBar: const AppAppBarWidget(
+            title: 'FAM - Story App',
           ),
           body: Center(
             child: Column(
@@ -63,7 +65,17 @@ class _MainPageState extends State<MainPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               FloatingActionButton(
-                onPressed: _incrementCounter,
+                // onPressed: incrementCounter,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const AddStoryPage();
+                      },
+                    ),
+                  );
+                },
                 tooltip: 'Increment',
                 child: const Icon(Icons.add),
               ),
