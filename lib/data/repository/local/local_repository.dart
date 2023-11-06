@@ -53,7 +53,7 @@ class LocalRepository {
     try {
       await FlutterKeychain.remove(key: 'userData');
     } catch (e) {
-      debugPrint('error setUserData $e');
+      debugPrint('error removeUserData $e');
     }
   }
 }
