@@ -1,5 +1,5 @@
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
-import 'package:fam_flutter_storyapp/presentation/page/login_page/bloc/login_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';

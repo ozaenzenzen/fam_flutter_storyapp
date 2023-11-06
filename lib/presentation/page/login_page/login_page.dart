@@ -1,6 +1,6 @@
 import 'package:fam_flutter_storyapp/data/model/request/login_request_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
-import 'package:fam_flutter_storyapp/presentation/page/login_page/bloc/login_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_page.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
