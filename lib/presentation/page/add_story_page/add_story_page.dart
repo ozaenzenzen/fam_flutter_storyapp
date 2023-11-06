@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:skeletons/skeletons.dart';
 
 class AddStoryPage extends StatefulWidget {
@@ -62,7 +63,99 @@ class _AddStoryPageState extends State<AddStoryPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        addStoryPickImageBloc.add(ActionPickImage());
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              padding: EdgeInsets.all(16.h),
+                              color: Colors.white,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      addStoryPickImageBloc.add(ActionPickImage(type: ImageSource.gallery));
+                                    },
+                                    child: Container(
+                                      // height: 120.h,
+                                      width: 120.h,
+                                      padding: EdgeInsets.all(10.h),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: Colors.black12,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.image,
+                                            size: 50.h,
+                                          ),
+                                          SizedBox(height: 10.h),
+                                          Text(
+                                            "From Gallery",
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 20.w),
+                                  InkWell(
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      addStoryPickImageBloc.add(ActionPickImage(type: ImageSource.camera));
+                                    },
+                                    child: Container(
+                                      // height: 120.h,
+                                      width: 120.h,
+                                      padding: EdgeInsets.all(10.h),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: Colors.black12,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.camera,
+                                            size: 50.h,
+                                          ),
+                                          SizedBox(height: 10.h),
+                                          Text(
+                                            "From Camera",
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // child: Text("Bottom Sheet"),
+                            );
+                          },
+                        );
                       },
                       child: BlocProvider(
                         create: (context) => addStoryPickImageBloc,
