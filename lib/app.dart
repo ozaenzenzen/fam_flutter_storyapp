@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'presentation/page/add_story_page/add_story_pick_image_bloc/add_story_pick_image_bloc.dart';
 import 'presentation/page/detail_story_page/get_detail_story_bloc/get_detail_story_bloc.dart';
 
 class MyApp extends StatefulWidget {
@@ -57,6 +58,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => GetDetailStoryBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AddStoryPickImageBloc(),
         ),
       ],
       child: ScreenUtilInit(
