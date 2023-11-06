@@ -1,7 +1,7 @@
 import 'package:fam_flutter_storyapp/presentation/page/login_page/check_islogin_bloc/check_islogin_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
-import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_bloc/show_password_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_login_bloc/show_password_login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => CheckIsloginBloc(),
         ),
         BlocProvider(
-          create: (context) => ShowPasswordBloc(),
+          create: (context) => ShowPasswordLoginBloc(),
         ),
       ],
       child: ScreenUtilInit(

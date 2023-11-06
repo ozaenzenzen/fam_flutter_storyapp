@@ -1,7 +1,7 @@
 import 'package:fam_flutter_storyapp/data/model/request/login_request_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
-import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_bloc/show_password_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_login_bloc/show_password_login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_page.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: emailTextFieldController,
                     ),
                     SizedBox(height: 10.h),
-                    BlocBuilder<ShowPasswordBloc, ShowPasswordLoginState>(
+                    BlocBuilder<ShowPasswordLoginBloc, ShowPasswordLoginState>(
                       builder: (context, state) {
                         if (state is ShowPasswordLoginFalse) {
                           return AppTextFieldWidget(
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                             obscureText: true,
                             suffixIcon: IconButton(
                               onPressed: () {
-                                context.read<ShowPasswordBloc>().add(ActionShowPasswordLogin(value: false));
+                                context.read<ShowPasswordLoginBloc>().add(ActionShowPasswordLogin(value: false));
                               },
                               icon: const Icon(
                                 Icons.remove_red_eye,
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                             obscureText: false,
                             suffixIcon: IconButton(
                               onPressed: () {
-                                context.read<ShowPasswordBloc>().add(ActionShowPasswordLogin(value: true));
+                                context.read<ShowPasswordLoginBloc>().add(ActionShowPasswordLogin(value: true));
                               },
                               icon: const Icon(
                                 Icons.remove_red_eye,

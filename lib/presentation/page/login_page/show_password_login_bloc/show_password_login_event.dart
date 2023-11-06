@@ -1,4 +1,4 @@
-part of 'show_password_bloc.dart';
+part of 'show_password_login_bloc.dart';
 
 @immutable
 sealed class ShowPasswordLoginEvent {}

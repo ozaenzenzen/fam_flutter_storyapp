@@ -3,11 +3,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-part 'show_password_event.dart';
-part 'show_password_state.dart';
+part 'show_password_login_event.dart';
+part 'show_password_login_state.dart';
 
-class ShowPasswordBloc extends Bloc<ShowPasswordLoginEvent, ShowPasswordLoginState> {
-  ShowPasswordBloc() : super(ShowPasswordLoginFalse()) {
+class ShowPasswordLoginBloc extends Bloc<ShowPasswordLoginEvent, ShowPasswordLoginState> {
+  ShowPasswordLoginBloc() : super(ShowPasswordLoginFalse()) {
     on<ShowPasswordLoginEvent>((event, emit) {
       if (event is ActionShowPasswordLogin) {
         showPasswordFunc(event);
