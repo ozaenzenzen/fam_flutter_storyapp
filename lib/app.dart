@@ -1,3 +1,4 @@
+import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_bloc/add_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/check_islogin_bloc/check_islogin_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
@@ -44,6 +45,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => ShowPasswordRegisterBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AddStoryBloc(),
         ),
       ],
       child: ScreenUtilInit(
@@ -97,7 +101,7 @@ class _MyAppState extends State<MyApp> {
             //     }
 
             //     return true;
-              // },
+            // },
             // ),
           );
         },
