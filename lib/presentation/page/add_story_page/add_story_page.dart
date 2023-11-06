@@ -117,13 +117,6 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                               color: AppColor.blue,
                                             ),
                                           ),
-                                          SizedBox(height: 6.h),
-                                          Text(
-                                            "Format dokumen .jpg",
-                                            style: GoogleFonts.inter(
-                                              color: AppColor.disabled,
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     ],
