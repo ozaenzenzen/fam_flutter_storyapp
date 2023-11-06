@@ -1,3 +1,4 @@
+import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_bloc/add_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/detail_story_page/detail_story_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
@@ -192,7 +193,12 @@ class _MainPageState extends State<MainPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const AddStoryPage();
+                        return AddStoryPage(
+                          actionCallback: () {
+                            Navigator.pop(context);
+                            context.read<GetAllStoryBloc>().add(ActionGetAllStory());
+                          },
+                        );
                       },
                     ),
                   );
