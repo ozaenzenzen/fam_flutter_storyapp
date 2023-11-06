@@ -8,6 +8,7 @@ class AppAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final Function()? onBack;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
+  final bool? automaticallyImplyLeading;
 
   const AppAppBarWidget({
     super.key,
@@ -15,6 +16,7 @@ class AppAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
     this.onBack,
     this.actions,
     this.bottom,
+    this.automaticallyImplyLeading,
   });
 
   @override
@@ -28,20 +30,26 @@ class _AppAppBarWidgetState extends State<AppAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
       backgroundColor: AppColor.primary,
       elevation: 10,
       shadowColor: const Color(0xff101828),
       centerTitle: true,
-      leading: InkWell(
-        onTap: widget.onBack ??
-            () {
-              Navigator.pop(context);
-            },
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-        ),
-      ),
+      automaticallyImplyLeading: widget.automaticallyImplyLeading ?? true,
+      leading: widget.onBack != null
+          ? InkWell(
+              onTap: widget.onBack ??
+                  () {
+                    Navigator.pop(context);
+                  },
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+            )
+          : null,
       title: Text(
         widget.title,
         style: GoogleFonts.inter(
