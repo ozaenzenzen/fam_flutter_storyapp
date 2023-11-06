@@ -4,12 +4,15 @@ import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/log
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_login_bloc/show_password_login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/show_password_register_bloc/show_password_register_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'presentation/page/detail_story_page/get_detail_story_bloc/get_detail_story_bloc.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -48,6 +51,12 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => AddStoryBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GetAllStoryBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GetDetailStoryBloc(),
         ),
       ],
       child: ScreenUtilInit(
