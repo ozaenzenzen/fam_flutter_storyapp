@@ -6,8 +6,8 @@ sealed class AddStoryState {}
 final class AddStoryInitial extends AddStoryState {}
 
 final class AddStorySuccess extends AddStoryState {
-  final GetAllStoryResponseModel getAllStoryResponseModel;
-  AddStorySuccess({required this.getAllStoryResponseModel});
+  final AddStoryResponseModel addStoryResponseModel;
+  AddStorySuccess({required this.addStoryResponseModel});
 }
 
 final class AddStoryLoading extends AddStoryState {}

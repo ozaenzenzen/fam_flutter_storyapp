@@ -2,7 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:fam_flutter_storyapp/data/model/request/add_story_request_model.dart';
-import 'package:fam_flutter_storyapp/data/model/response/get_all_story_response_model.dart';
+import 'package:fam_flutter_storyapp/data/model/response/add_story_response_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/stories_repository.dart';
 import 'package:fam_flutter_storyapp/domain/entities/user_data_model.dart';
@@ -15,21 +15,24 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
   AddStoryBloc() : super(AddStoryInitial()) {
     on<AddStoryEvent>((event, emit) {
       if (event is ActionAddStory) {
-        actionAddStoryFunc();
+        actionAddStoryFunc(event);
       }
     });
   }
 
-  Future<void> actionAddStoryFunc() async {
+  Future<void> actionAddStoryFunc(ActionAddStory event) async {
     try {
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
-        GetAllStoryResponseModel? getAllStoryResponseModel = await StoriesRepository().getAllStory(userDataModel.token!);
-        if (getAllStoryResponseModel != null) {
-          if (getAllStoryResponseModel.error == false) {
-            emit(AddStorySuccess(getAllStoryResponseModel: getAllStoryResponseModel));
+        AddStoryResponseModel? addStoryResponseModel = await StoriesRepository().addStory(
+          event.addStoryRequestModel,
+          userDataModel.token!,
+        );
+        if (addStoryResponseModel != null) {
+          if (addStoryResponseModel.error == false) {
+            emit(AddStorySuccess(addStoryResponseModel: addStoryResponseModel));
           } else {
-            emit(AddStoryFailed(errorMessage: getAllStoryResponseModel.message!));
+            emit(AddStoryFailed(errorMessage: addStoryResponseModel.message!));
           }
         } else {
           emit(AddStoryFailed(errorMessage: "Empty data"));
