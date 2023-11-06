@@ -24,4 +24,17 @@ class AppImagePickerService {
       return null;
     }
   }
+
+   static Future<File?> getImageAsFile() async {
+    try {
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 10,
+      );
+      File fileFormat = File(image!.path);
+      return fileFormat;
+    } catch (e) {
+      return null;
+    }
+  }
 }
