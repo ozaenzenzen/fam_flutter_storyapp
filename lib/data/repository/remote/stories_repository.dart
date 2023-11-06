@@ -1,6 +1,7 @@
 import 'package:fam_flutter_storyapp/data/model/request/add_story_request_model.dart';
 import 'package:fam_flutter_storyapp/data/model/response/add_story_response_model.dart';
 import 'package:fam_flutter_storyapp/data/model/response/get_all_story_response_model.dart';
+import 'package:fam_flutter_storyapp/data/model/response/get_detail_story_response_model.dart';
 import 'package:fam_flutter_storyapp/env.dart';
 import 'package:fam_flutter_storyapp/support/app_api_path.dart';
 import 'package:fam_flutter_storyapp/support/app_api_service.dart';
@@ -62,7 +63,7 @@ class StoriesRepository {
     }
   }
 
-  Future<GetAllStoryResponseModel?> getDetailStory({
+  Future<GetDetailStoryResponseModel?> getDetailStory({
     required String token,
     required String idStory,
   }) async {
@@ -74,9 +75,9 @@ class StoriesRepository {
         token: token,
         method: MethodRequest.get,
       );
-      return GetAllStoryResponseModel.fromJson(response.data);
+      return GetDetailStoryResponseModel.fromJson(response.data);
     } catch (errorMessage) {
-      debugPrint("[StoriesRepository][getAllStory] errorMessage $errorMessage");
+      debugPrint("[StoriesRepository][getDetailStory] errorMessage $errorMessage");
       return null;
     }
   }
