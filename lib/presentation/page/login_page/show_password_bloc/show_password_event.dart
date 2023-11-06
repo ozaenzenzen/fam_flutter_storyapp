@@ -1,9 +1,9 @@
 part of 'show_password_bloc.dart';
 
 @immutable
-sealed class ShowPasswordEvent {}
+sealed class ShowPasswordLoginEvent {}
 
-final class ActionShowPassword extends ShowPasswordEvent {
+final class ActionShowPasswordLogin extends ShowPasswordLoginEvent {
   final bool value;
-  ActionShowPassword({required this.value});
+  ActionShowPasswordLogin({required this.value});
 }

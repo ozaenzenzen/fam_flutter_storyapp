@@ -6,24 +6,24 @@ import 'package:meta/meta.dart';
 part 'show_password_event.dart';
 part 'show_password_state.dart';
 
-class ShowPasswordBloc extends Bloc<ShowPasswordEvent, ShowPasswordState> {
-  ShowPasswordBloc() : super(ShowPasswordFalse()) {
-    on<ShowPasswordEvent>((event, emit) {
-      if (event is ActionShowPassword) {
+class ShowPasswordBloc extends Bloc<ShowPasswordLoginEvent, ShowPasswordLoginState> {
+  ShowPasswordBloc() : super(ShowPasswordLoginFalse()) {
+    on<ShowPasswordLoginEvent>((event, emit) {
+      if (event is ActionShowPasswordLogin) {
         showPasswordFunc(event);
       }
     });
   }
 
-  Future<void> showPasswordFunc(ActionShowPassword event) async {
+  Future<void> showPasswordFunc(ActionShowPasswordLogin event) async {
     try {
       if (event.value) {
-        emit(ShowPasswordFalse());
+        emit(ShowPasswordLoginFalse());
       } else {
-        emit(ShowPasswordTrue());
+        emit(ShowPasswordLoginTrue());
       }
     } catch (e) {
-      emit(ShowPasswordFalse());
+      emit(ShowPasswordLoginFalse());
     }
   }
 }

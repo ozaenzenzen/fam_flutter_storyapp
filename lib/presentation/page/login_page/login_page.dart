@@ -62,9 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                       controller: emailTextFieldController,
                     ),
                     SizedBox(height: 10.h),
-                    BlocBuilder<ShowPasswordBloc, ShowPasswordState>(
+                    BlocBuilder<ShowPasswordBloc, ShowPasswordLoginState>(
                       builder: (context, state) {
-                        if (state is ShowPasswordFalse) {
+                        if (state is ShowPasswordLoginFalse) {
                           return AppTextFieldWidget(
                             textFieldTitle: "Password",
                             textFieldHintText: "Password",
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                             obscureText: true,
                             suffixIcon: IconButton(
                               onPressed: () {
-                                context.read<ShowPasswordBloc>().add(ActionShowPassword(value: false));
+                                context.read<ShowPasswordBloc>().add(ActionShowPasswordLogin(value: false));
                               },
                               icon: const Icon(
                                 Icons.remove_red_eye,
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                             obscureText: false,
                             suffixIcon: IconButton(
                               onPressed: () {
-                                context.read<ShowPasswordBloc>().add(ActionShowPassword(value: true));
+                                context.read<ShowPasswordBloc>().add(ActionShowPasswordLogin(value: true));
                               },
                               icon: const Icon(
                                 Icons.remove_red_eye,

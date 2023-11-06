@@ -1,8 +1,8 @@
 part of 'show_password_bloc.dart';
 
 @immutable
-sealed class ShowPasswordState {}
+sealed class ShowPasswordLoginState {}
 
-final class ShowPasswordTrue extends ShowPasswordState {}
+final class ShowPasswordLoginTrue extends ShowPasswordLoginState {}
 
-final class ShowPasswordFalse extends ShowPasswordState {}
+final class ShowPasswordLoginFalse extends ShowPasswordLoginState {}
