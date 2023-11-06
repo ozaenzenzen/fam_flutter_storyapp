@@ -21,6 +21,7 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
   }
 
   Future<void> actionAddStoryFunc(ActionAddStory event) async {
+    emit(AddStoryLoading());
     try {
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
