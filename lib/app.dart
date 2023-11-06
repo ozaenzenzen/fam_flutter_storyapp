@@ -1,4 +1,4 @@
-import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
+import 'package:fam_flutter_storyapp/presentation/page/login_page/check_islogin_bloc/check_islogin_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
@@ -16,19 +16,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isLogin = false;
-
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    isLogin = await LocalRepository.getIsLogin();
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('isLogin $isLogin');
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -39,6 +33,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => RegisterBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CheckIsloginBloc(),
         ),
       ],
       child: ScreenUtilInit(
@@ -55,7 +52,17 @@ class _MyAppState extends State<MyApp> {
               useMaterial3: true,
             ),
             // home: const MainPage(),
-            home: isLogin ? const MainPage() : const LoginPage(),
+            // home: isLogin ? const MainPage() : const LoginPage(),
+            home: BlocBuilder(
+              bloc: context.read<CheckIsloginBloc>()..add(ActionCheckIslogin()),
+              builder: (context, state) {
+                if (state is CheckIsloginFalse) {
+                  return const LoginPage();
+                } else {
+                  return const MainPage();
+                }
+              },
+            ),
           );
         },
       ),
