@@ -1,6 +1,6 @@
 import 'package:fam_flutter_storyapp/data/model/request/register_request_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
-import 'package:fam_flutter_storyapp/presentation/page/register_page/bloc/register_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_screen_loading_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_textfield_widget.dart';

@@ -4,7 +4,7 @@ import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dar
 import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_bloc/show_password_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page.dart';
-import 'package:fam_flutter_storyapp/presentation/page/register_page/bloc/register_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
