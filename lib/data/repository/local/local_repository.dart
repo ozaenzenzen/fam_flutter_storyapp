@@ -27,7 +27,7 @@ class LocalRepository {
     }
   }
 
-  static Future<UserDataModel?> getUserData(String value) async {
+  static Future<UserDataModel?> getUserData() async {
     try {
       String isLogin = await FlutterKeychain.get(key: 'userData') ?? "";
       if (isLogin == "") {
