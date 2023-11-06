@@ -6,6 +6,8 @@ import 'package:fam_flutter_storyapp/env.dart';
 import 'package:fam_flutter_storyapp/support/app_api_path.dart';
 import 'package:fam_flutter_storyapp/support/app_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 
 class StoriesRepository {
   Future<AddStoryResponseModel?> addStory(AddStoryRequestModel data, String token) async {
@@ -14,7 +16,17 @@ class StoriesRepository {
         EnvironmentConfig.baseUrl(),
       ).call(
         AppApiPath.stories,
-        request: data.toJson(),
+        // request: data.toJson(),
+        request: {
+          'description': data.description,
+          'photo': await MultipartFile.fromFile(
+            data.photo.path,
+            filename: data.photo.path.split('/').last,
+            contentType: MediaType("image", "jpeg"),
+          ),
+          'lat': data.lat,
+          'lon': data.lon,
+        },
         method: MethodRequest.post,
         header: {
           // 'Authorization' : 'Bearer $token',
