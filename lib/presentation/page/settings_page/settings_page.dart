@@ -1,7 +1,13 @@
+import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
+import 'package:fam_flutter_storyapp/support/app_localization.dart';
+import 'package:fam_flutter_storyapp/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -16,8 +22,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppAppBarWidget(
-        title: "Settings",
+      appBar: AppAppBarWidget(
+        title: AppLocalizations.of(context)!.textSettings,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(
@@ -26,15 +32,65 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         child: Column(
           children: [
+            // DropdownButtonHideUnderline(
+            //   child: DropdownButton(
+            //     hint: Text(
+            //       AppLocalizations.of(context)!.textLanguage,
+            //       style: GoogleFonts.inter(
+            //         fontSize: 16.sp,
+            //       ),
+            //     ),
+            //     icon: const Icon(Icons.flag),
+            //     items: AppLocalizations.supportedLocales.map((Locale locale) {
+            //       final flag = Localization.getFlag(locale.languageCode);
+            //       return DropdownMenuItem(
+            //         value: locale,
+            //         child: Center(
+            //           child: Text(
+            //             flag,
+            //             style: GoogleFonts.inter(),
+            //           ),
+            //         ),
+            //         onTap: () {
+            //           final provider = Provider.of<LocalizationProvider>(context, listen: false);
+            //           provider.setLocale(locale);
+            //         },
+            //       );
+            //     }).toList(),
+            //     onChanged: (_) {},
+            //   ),
+            // ),
             ListTile(
-              title: const Text('Bahasa'),
-              trailing: Switch.adaptive(
-                activeColor: AppColor.primary,
-                value: isChange,
-                onChanged: (value) async {
-                  setState(() {
-                    isChange = value;
-                  });
+              title: Text(
+                // 'Bahasa',
+                AppLocalizations.of(context)!.textLanguage,
+                style: GoogleFonts.inter(
+                  fontSize: 16.sp,
+                ),
+              ),
+              trailing: ChangeNotifierProvider<LocalizationProvider>(
+                create: (context) => LocalizationProvider()..getLocale(),
+                builder: (context, child) {
+                  final providerLocale = Provider.of<LocalizationProvider>(context);
+                  if (providerLocale.locale.languageCode == "en") {
+                    isChange = true;
+                  } else {
+                    isChange = false;
+                  }
+                  return Switch.adaptive(
+                    activeColor: AppColor.primary,
+                    value: isChange,
+                    onChanged: (value) async {
+                      isChange = value;
+                      if (isChange) {
+                        final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                        provider.setLocale(const Locale("en"));
+                      } else {
+                        final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                        provider.setLocale(const Locale("id"));
+                      }
+                    },
+                  );
                 },
               ),
             ),

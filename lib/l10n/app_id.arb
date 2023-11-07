@@ -1,0 +1,82 @@
+{
+  "titleApp": "Aplikasi Lokalisasi",
+  "@titleApp": {
+    "description": "Deskripsi mengenai variabel titleApp"
+  },
+  "helloWorld": "Halo Dunia!",
+  "@helloWorld": {
+    "description": "Deskripsi variabel helloWorld"
+  },
+  "titleLoginPage": "Halaman Login",
+  "@titleLoginPage": {
+    "description": "Title Halaman Login"
+  },
+  "titleRegisterPage": "Halaman Daftar",
+  "@titleRegisterPage": {
+    "description": "Title Halaman Daftar"
+  },
+  "btnLogin": "Masuk",
+  "@btnLogin": {
+    "description": "Text Button Login"
+  },
+  "btnRegister": "Daftar",
+  "@btnLogin": {
+    "description": "Text Button Register"
+  },
+  "textFieldName": "Nama",
+  "@textFieldName": {
+    "description": "Text TextField Nama"
+  },
+  "textFieldPassword": "Kata Sandi",
+  "@textFieldPassword": {
+    "description": "Text TextField Password"
+  },
+  "textDontHaveAccount": "Belum ada Akun?",
+  "@textDontHaveAccount": {
+    "description": "Text Belum Ada Akun?"
+  },
+  "textAlreadyHaveAccount": "Sudah memiliki akun?",
+  "@textAlreadyHaveAccount": {
+    "description": "Text Sudah memiliki akun?"
+  },
+  "textAddStory": "Tambah Cerita",
+  "@textAddStory": {
+    "description": "Text Tambah Cerita"
+  },
+  "textLogout": "Keluar",
+  "@textLogout": {
+    "description": "Text Keluar"
+  },
+  "textLanguage": "Bahasa",
+  "@textLanguage": {
+    "description": "Text Bahasa"
+  },
+  "textSettings": "Pengaturan",
+  "@textSettings": {
+    "description": "Text Pengaturan"
+  },
+  "textDescription": "Deskripsi",
+  "@textDescription": {
+    "description": "Text Deskripsi"
+  },
+  "textUpload": "Unggah",
+  "@textUpload": {
+    "description": "Text Unggah"
+  },
+  "textBrowseFile": "Menelusuri File",
+  "@textBrowseFile": {
+    "description": "Text Menelusuri File"
+  },
+  "textSubmit": "Kirim",
+  "@textSubmit": {
+    "description": "Text Kirim"
+  },
+  "textAddNewStory": "Tambah Cerita Baru",
+  "@textAddNewStory": {
+    "description": "Text Tambah Cerita Baru"
+  },
+  "textDetailStory": "Detail Cerita",
+  "@textDetailStory": {
+    "description": "Text Detail Cerita"
+  }
+}

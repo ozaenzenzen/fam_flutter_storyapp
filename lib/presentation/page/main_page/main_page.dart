@@ -3,6 +3,7 @@ import 'package:fam_flutter_storyapp/presentation/page/detail_story_page/detail_
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:flutter/material.dart';
@@ -55,9 +56,32 @@ class _MainPageState extends State<MainPage> {
           return false;
         },
         child: Scaffold(
-          appBar: const AppAppBarWidget(
+          appBar: AppAppBarWidget(
             title: 'FAM - Story App',
             automaticallyImplyLeading: false,
+            actions: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const SettingsPage();
+                      },
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  child: const Icon(
+                    Icons.menu_outlined,
+                  ),
+                ),
+              ),
+            ],
           ),
           body: RefreshIndicator(
             onRefresh: () async {

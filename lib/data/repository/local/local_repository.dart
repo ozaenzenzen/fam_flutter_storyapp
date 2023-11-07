@@ -56,4 +56,26 @@ class LocalRepository {
       debugPrint('error removeUserData $e');
     }
   }
+
+  static Future<void> setLanguage(String value) async {
+    try {
+      await FlutterKeychain.put(key: 'language', value: value);
+    } catch (e) {
+      debugPrint('error setLanguage $e');
+    }
+  }
+
+  static Future<String?> getLanguage() async {
+    try {
+      String value = await FlutterKeychain.get(key: 'language') ?? "";
+      if (value == "") {
+        return null;
+      } else {
+        return value;
+      }
+    } catch (e) {
+      debugPrint('error getLanguage $e');
+      return null;
+    }
+  }
 }

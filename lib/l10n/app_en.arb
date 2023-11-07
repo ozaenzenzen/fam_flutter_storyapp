@@ -1,0 +1,22 @@
+{
+  "titleApp": "Localization App",
+  "helloWorld": "Hello World!",
+  "titleLoginPage": "Login Page",
+  "titleRegisterPage": "Register Page",
+  "btnLogin": "Login",
+  "btnRegister": "Register",
+  "textFieldName": "Name",
+  "textFieldPassword": "Password",
+  "textDontHaveAccount": "Don't have an account yet?",
+  "textAlreadyHaveAccount": "Already have an account?",
+  "textAddStory": "Add Story",
+  "textLogout": "Logout",
+  "textLanguage": "Language",
+  "textSettings": "Settings",
+  "textDescription": "Description",
+  "textUpload": "Upload",
+  "textBrowseFile": "Browse File",
+  "textSubmit": "Subnit",
+  "textAddNewStory": "Add New Story",
+  "textDetailStory": "Detail Story"
+}
