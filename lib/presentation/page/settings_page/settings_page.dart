@@ -1,6 +1,4 @@
-import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
-import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:fam_flutter_storyapp/support/app_localization.dart';
 import 'package:fam_flutter_storyapp/utils/localization.dart';
 import 'package:flutter/material.dart';
