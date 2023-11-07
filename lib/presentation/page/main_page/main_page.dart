@@ -12,7 +12,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletons/skeletons.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final Function(String)? onTapToDetail;
+  final Function()? onAddStory;
+  final Function()? onLogout;
+
+  const MainPage({
+    super.key,
+    this.onTapToDetail,
+    this.onLogout,
+    this.onAddStory,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -30,15 +39,15 @@ class _MainPageState extends State<MainPage> {
     return BlocListener<LogoutBloc, LogoutState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const LoginPage();
-              },
-            ),
-            (route) => false,
-          );
+          // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+          //   MaterialPageRoute(
+          //     builder: (context) {
+          //       return const LoginPage();
+          //     },
+          //   ),
+          //   (route) => false,
+          // );
+          widget.onLogout?.call();
         }
       },
       child: WillPopScope(
@@ -48,6 +57,7 @@ class _MainPageState extends State<MainPage> {
         child: Scaffold(
           appBar: const AppAppBarWidget(
             title: 'FAM - Story App',
+            automaticallyImplyLeading: false,
           ),
           body: RefreshIndicator(
             onRefresh: () async {
@@ -89,16 +99,17 @@ class _MainPageState extends State<MainPage> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DetailStoryPage(
-                                      idStory: state.getAllStoryResponseModel.listStory![index].id!,
-                                    );
-                                  },
-                                ),
-                              );
+                              widget.onTapToDetail?.call(state.getAllStoryResponseModel.listStory![index].id!);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) {
+                              //       return DetailStoryPage(
+                              //         idStory: state.getAllStoryResponseModel.listStory![index].id!,
+                              //       );
+                              //     },
+                              //   ),
+                              // );
                             },
                             child: Container(
                               decoration: const BoxDecoration(
@@ -208,19 +219,20 @@ class _MainPageState extends State<MainPage> {
                 heroTag: "btn1",
                 backgroundColor: AppColor.primary,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AddStoryPage(
-                          actionCallback: () {
-                            Navigator.pop(context);
-                            context.read<GetAllStoryBloc>().add(ActionGetAllStory());
-                          },
-                        );
-                      },
-                    ),
-                  );
+                  widget.onAddStory?.call();
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return AddStoryPage(
+                  //         actionCallback: () {
+                  //           Navigator.pop(context);
+                  //           context.read<GetAllStoryBloc>().add(ActionGetAllStory());
+                  //         },
+                  //       );
+                  //     },
+                  //   ),
+                  // );
                 },
                 tooltip: 'Increment',
               ),

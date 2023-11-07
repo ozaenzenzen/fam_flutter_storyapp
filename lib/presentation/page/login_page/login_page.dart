@@ -15,7 +15,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Function()? onLogin;
+  final Function()? onRegister;
+
+  const LoginPage({
+    super.key,
+    this.onLogin,
+    this.onRegister,
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -26,6 +33,13 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordTextFieldController = TextEditingController();
 
   bool showPassword = true;
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailTextFieldController.dispose();
+    passwordTextFieldController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,14 +151,16 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 20.h),
                     AppMainButtonWidget(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const RegisterPage();
-                            },
-                          ),
-                        );
+                        debugPrint('test');
+                        widget.onRegister?.call();
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return const RegisterPage();
+                        //     },
+                        //   ),
+                        // );
                       },
                       text: "Register",
                     ),
@@ -180,14 +196,15 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
         if (state is LoginSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const MainPage();
-              },
-            ),
-          );
+          widget.onLogin?.call();
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) {
+          //       return const MainPage();
+          //     },
+          //   ),
+          // );
         }
       },
     );

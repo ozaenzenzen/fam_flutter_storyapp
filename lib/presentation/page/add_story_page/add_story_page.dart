@@ -18,10 +18,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:skeletons/skeletons.dart';
 
 class AddStoryPage extends StatefulWidget {
-  final Function()? actionCallback;
+  final Function()? onBack;
+  final Function(BuildContext context)? actionCallback;
 
   const AddStoryPage({
     super.key,
+    this.onBack,
     this.actionCallback,
   });
 
@@ -51,8 +53,11 @@ class _AddStoryPageState extends State<AddStoryPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        appBar: const AppAppBarWidget(
+        appBar: AppAppBarWidget(
           title: 'Add New Story',
+          onBack: () {
+            widget.onBack?.call();
+          },
         ),
         body: Stack(
           children: [
@@ -229,7 +234,7 @@ class _AddStoryPageState extends State<AddStoryPage> {
             );
           }
           if (state is AddStorySuccess) {
-            widget.actionCallback?.call();
+            widget.actionCallback?.call(context);
           }
         },
       ),

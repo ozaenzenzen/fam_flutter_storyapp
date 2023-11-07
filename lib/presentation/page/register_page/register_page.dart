@@ -1,5 +1,6 @@
 import 'package:fam_flutter_storyapp/data/model/request/register_request_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
+import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_bloc/register_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/show_password_register_bloc/show_password_register_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
@@ -13,7 +14,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final Function()? onLogin;
+  final Function()? onRegister;
+
+  const RegisterPage({
+    super.key,
+    this.onLogin,
+    this.onRegister,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -27,6 +35,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool showPassword = true;
   // bool showConfirmPassword = true;
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameTextFieldController.dispose();
+    emailTextFieldController.dispose();
+    passwordTextFieldController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +161,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: 20.h),
                     AppMainButtonWidget(
                       onPressed: () {
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                        // Navigator.of(context, rootNavigator: true).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return const LoginPage();
+                        //     },
+                        //   ),
+                        // );
+                        widget.onLogin?.call();
                       },
                       text: "Login",
                     ),
@@ -187,8 +211,9 @@ class _RegisterPageState extends State<RegisterPage> {
             description: "Success create account",
             buttonTitle: "Route to Login Page",
             mainButtonAction: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              widget.onLogin?.call();
+              // Navigator.pop(context);
+              // Navigator.pop(context);
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(
