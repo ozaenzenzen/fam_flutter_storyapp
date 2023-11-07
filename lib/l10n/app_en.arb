@@ -25,5 +25,6 @@
   "btnBack": "Back",
   "textTitlePopupSuccess": "Success",
   "textToLoginPage": "Route to Login Page",
-  "textSuccessCreateAccount": "Success create account"
+  "textSuccessCreateAccount": "Success create account",
+  "textLoading": "Loading... Please wait"
 }

@@ -106,5 +106,9 @@
   "textSuccessCreateAccount": "Berhasil mendaftar akun",
   "@textSuccessCreateAccount": {
     "description": "Text Berhasil Mendaftar Akun"
+  },
+  "textLoading": "Sedang memuat... Harap tunggu",
+  "@textLoading": {
+    "description": "Text Sedang memuat... Harap tunggu"
   }
 }
