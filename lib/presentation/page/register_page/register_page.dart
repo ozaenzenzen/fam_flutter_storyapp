@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onLogin;
@@ -65,7 +66,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     SizedBox(height: 100.h),
                     Text(
-                      "Register Page",
+                      // "Register Page",
+                      AppLocalizations.of(context)!.titleRegisterPage,
                       style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 28.sp,
@@ -74,8 +76,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     SizedBox(height: 40.h),
                     AppTextFieldWidget(
-                      textFieldTitle: "Name",
-                      textFieldHintText: "Name",
+                      // textFieldTitle: "Name",
+                      // textFieldHintText: "Name",
+                      textFieldTitle: AppLocalizations.of(context)!.textFieldName,
+                      textFieldHintText: AppLocalizations.of(context)!.textFieldName,
                       controller: nameTextFieldController,
                     ),
                     SizedBox(height: 10.h),
@@ -89,8 +93,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       builder: (context, state) {
                         if (state is ShowPasswordRegisterFalse) {
                           return AppTextFieldWidget(
-                            textFieldTitle: "Password",
-                            textFieldHintText: "Password",
+                            // textFieldTitle: "Password",
+                            // textFieldHintText: "Password",
+                            textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
+                            textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
                             controller: passwordTextFieldController,
                             obscureText: true,
                             suffixIcon: IconButton(
@@ -105,8 +111,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           );
                         } else {
                           return AppTextFieldWidget(
-                            textFieldTitle: "Password",
-                            textFieldHintText: "Password",
+                            // textFieldTitle: "Password",
+                            // textFieldHintText: "Password",
+                            textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
+                            textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
                             controller: passwordTextFieldController,
                             obscureText: false,
                             suffixIcon: IconButton(
@@ -128,9 +136,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         if (nameTextFieldController.text.isEmpty || emailTextFieldController.text.isEmpty || passwordTextFieldController.text.isEmpty) {
                           AppDialogAction.showFailedPopup(
                             context: context,
-                            title: "Something's wrong",
-                            description: "There's still empty field",
-                            buttonTitle: 'Back',
+                            // title: "Something's wrong",
+                            // description: "There's still empty field",
+                            // buttonTitle: 'Back',
+                            title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                            description: AppLocalizations.of(context)!.textDescriptionPopupFailed2,
+                            buttonTitle: AppLocalizations.of(context)!.btnBack,
                           );
                         } else {
                           context.read<RegisterBloc>().add(
@@ -145,12 +156,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               );
                         }
                       },
-                      text: 'Register Now',
+                      // text: 'Register Now',
+                      text: AppLocalizations.of(context)!.btnRegister,
                     ),
                     SizedBox(height: 20.h),
                     Center(
                       child: Text(
-                        "Already have an account?",
+                        // "Already have an account?",
+                        AppLocalizations.of(context)!.textAlreadyHaveAccount,
                         style: GoogleFonts.inter(
                           color: Colors.black,
                           fontSize: 14.sp,
@@ -171,7 +184,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         // );
                         widget.onLogin?.call();
                       },
-                      text: "Login",
+                      // text: "Login",
+                      text: AppLocalizations.of(context)!.btnLogin,
                     ),
                     SizedBox(height: 20.h),
                   ],
@@ -199,17 +213,22 @@ class _RegisterPageState extends State<RegisterPage> {
         if (state is RegisterFailed) {
           AppDialogAction.showFailedPopup(
             context: context,
-            title: "Something's wrong",
+            // title: "Something's wrong",
+            title: AppLocalizations.of(context)!.textTitlePopupFailed,
             description: state.errorMessage,
-            buttonTitle: "Back",
+            // buttonTitle: "Back",
+            buttonTitle: AppLocalizations.of(context)!.btnBack,
           );
         }
         if (state is RegisterSuccess) {
           AppDialogAction.showSuccessPopup(
             context: context,
-            title: "Success",
-            description: "Success create account",
-            buttonTitle: "Route to Login Page",
+            // title: "Success",
+            // description: "Success create account",
+            // buttonTitle: "Route to Login Page",
+            title: AppLocalizations.of(context)!.textTitlePopupSuccess,
+            description: AppLocalizations.of(context)!.textSuccessCreateAccount,
+            buttonTitle: AppLocalizations.of(context)!.textToLoginPage,
             mainButtonAction: () {
               widget.onLogin?.call();
               // Navigator.pop(context);

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DetailStoryPage extends StatefulWidget {
   final String idStory;
@@ -30,8 +31,9 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppAppBarWidget(
-        title: "Detail Story",
+      appBar: AppAppBarWidget(
+        // title: "Detail Story",
+        title: AppLocalizations.of(context)!.textDetailStory,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(

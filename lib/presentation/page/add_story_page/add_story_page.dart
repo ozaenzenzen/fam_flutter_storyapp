@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddStoryPage extends StatefulWidget {
   final Function()? onBack;
@@ -54,7 +55,8 @@ class _AddStoryPageState extends State<AddStoryPage> {
       },
       child: Scaffold(
         appBar: AppAppBarWidget(
-          title: 'Add New Story',
+          // title: 'Add New Story',
+          title: AppLocalizations.of(context)!.textAddNewStory,
           onBack: () {
             widget.onBack?.call();
           },
@@ -115,7 +117,8 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Browse File",
+                                            // "Browse File",
+                                            AppLocalizations.of(context)!.textBrowseFile,
                                             style: GoogleFonts.inter(
                                               decoration: TextDecoration.underline,
                                               fontWeight: FontWeight.w700,
@@ -135,8 +138,10 @@ class _AddStoryPageState extends State<AddStoryPage> {
                     ),
                     SizedBox(height: 40.h),
                     AppTextFieldWidget(
-                      textFieldTitle: "Description",
-                      textFieldHintText: "Description",
+                      // textFieldTitle: "Description",
+                      // textFieldHintText: "Description",
+                      textFieldTitle: AppLocalizations.of(context)!.textDescription,
+                      textFieldHintText: AppLocalizations.of(context)!.textDescription,
                       controller: descriptionTextFieldController,
                       maxLines: 6,
                     ),
@@ -152,9 +157,12 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                 if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
                                   AppDialogAction.showFailedPopup(
                                     context: context,
-                                    title: "Something's wrong",
-                                    description: "Some field required is not filled",
-                                    buttonTitle: "Back",
+                                    // title: "Something's wrong",
+                                    // description: "Some field required is not filled",
+                                    // buttonTitle: "Back",
+                                    title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                                    description: AppLocalizations.of(context)!.textDescriptionPopupFailed1,
+                                    buttonTitle: AppLocalizations.of(context)!.btnBack,
                                   );
                                 } else {
                                   addStoryBloc.add(
@@ -170,7 +178,8 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                   );
                                 }
                               },
-                              text: "Submit",
+                              // text: "Submit",
+                              text: AppLocalizations.of(context)!.textSubmit,
                             );
                           } else {
                             return AppMainButtonWidget(
@@ -178,9 +187,12 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                 if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
                                   AppDialogAction.showFailedPopup(
                                     context: context,
-                                    title: "Something's wrong",
-                                    description: "Some field required is not filled",
-                                    buttonTitle: "Back",
+                                    // title: "Something's wrong",
+                                    // description: "Some field required is not filled",
+                                    // buttonTitle: "Back",
+                                    title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                                    description: AppLocalizations.of(context)!.textDescriptionPopupFailed1,
+                                    buttonTitle: AppLocalizations.of(context)!.btnBack,
                                   );
                                 } else {
                                   addStoryBloc.add(
@@ -196,7 +208,8 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                   );
                                 }
                               },
-                              text: "Submit",
+                              // text: "Submit",
+                              text: AppLocalizations.of(context)!.textSubmit,
                             );
                           }
                         },
@@ -228,9 +241,11 @@ class _AddStoryPageState extends State<AddStoryPage> {
           if (state is AddStoryFailed) {
             AppDialogAction.showFailedPopup(
               context: context,
-              title: "Something's wrong",
+              // title: "Something's wrong",
+              title: AppLocalizations.of(context)!.textTitlePopupFailed,
               description: state.errorMessage,
-              buttonTitle: "Back",
+              // buttonTitle: "Back",
+              buttonTitle: AppLocalizations.of(context)!.btnBack,
             );
           }
           if (state is AddStorySuccess) {

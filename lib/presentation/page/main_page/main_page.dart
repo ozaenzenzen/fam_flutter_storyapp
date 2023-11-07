@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   final Function(String)? onTapToDetail;
@@ -227,7 +228,8 @@ class _MainPageState extends State<MainPage> {
                 label: Row(
                   children: [
                     Text(
-                      "Add Story",
+                      // "Add Story",
+                      AppLocalizations.of(context)!.textAddStory,
                       style: GoogleFonts.inter(
                         fontSize: 14.sp,
                         color: Colors.white,
@@ -265,7 +267,8 @@ class _MainPageState extends State<MainPage> {
                 label: Row(
                   children: [
                     Text(
-                      "Logout",
+                      // "Logout",
+                      AppLocalizations.of(context)!.textLogout,
                       style: GoogleFonts.inter(
                         fontSize: 14.sp,
                         color: Colors.white,

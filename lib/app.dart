@@ -65,7 +65,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: ChangeNotifierProvider<LocalizationProvider>(
-          create: (context) => LocalizationProvider(),
+          // create: (context) => LocalizationProvider(),
+          create: (context) => LocalizationProvider()..getLocale(),
           builder: (context, child) {
             final providerLocale = Provider.of<LocalizationProvider>(context);
             return ScreenUtilInit(

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onLogin;
@@ -62,7 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     SizedBox(height: 130.h),
                     Text(
-                      "Login Page",
+                      // "Login Page",
+                      AppLocalizations.of(context)!.titleLoginPage,
                       style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 28.sp,
@@ -80,8 +82,10 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context, state) {
                         if (state is ShowPasswordLoginFalse) {
                           return AppTextFieldWidget(
-                            textFieldTitle: "Password",
-                            textFieldHintText: "Password",
+                            // textFieldTitle: "Password",
+                            // textFieldHintText: "Password",
+                            textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
+                            textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
                             controller: passwordTextFieldController,
                             obscureText: true,
                             suffixIcon: IconButton(
@@ -96,8 +100,10 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         } else {
                           return AppTextFieldWidget(
-                            textFieldTitle: "Password",
-                            textFieldHintText: "Password",
+                            // textFieldTitle: "Password",
+                            // textFieldHintText: "Password",
+                            textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
+                            textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
                             controller: passwordTextFieldController,
                             obscureText: false,
                             suffixIcon: IconButton(
@@ -119,9 +125,12 @@ class _LoginPageState extends State<LoginPage> {
                         if (emailTextFieldController.text.isEmpty || passwordTextFieldController.text.isEmpty) {
                           AppDialogAction.showFailedPopup(
                             context: context,
-                            title: "Something's wrong",
-                            description: "There's still empty field",
-                            buttonTitle: 'Back',
+                            // title: "Something's wrong",
+                            // description: "There's still empty field",
+                            // buttonTitle: 'Back',
+                            title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                            description: AppLocalizations.of(context)!.textDescriptionPopupFailed2,
+                            buttonTitle: AppLocalizations.of(context)!.btnBack,
                           );
                         } else {
                           context.read<LoginBloc>().add(
@@ -135,12 +144,14 @@ class _LoginPageState extends State<LoginPage> {
                               );
                         }
                       },
-                      text: 'Login',
+                      // text: 'Login',
+                      text: AppLocalizations.of(context)!.btnLogin,
                     ),
                     SizedBox(height: 20.h),
                     Center(
                       child: Text(
-                        "Belum Ada Akun?",
+                        // "Belum Ada Akun?",
+                        AppLocalizations.of(context)!.textDontHaveAccount,
                         style: GoogleFonts.inter(
                           color: Colors.black,
                           fontSize: 14.sp,
@@ -151,7 +162,6 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 20.h),
                     AppMainButtonWidget(
                       onPressed: () {
-                        debugPrint('test');
                         widget.onRegister?.call();
                         // Navigator.push(
                         //   context,
@@ -162,7 +172,8 @@ class _LoginPageState extends State<LoginPage> {
                         //   ),
                         // );
                       },
-                      text: "Register",
+                      // text: "Register",
+                      text: AppLocalizations.of(context)!.btnRegister,
                     ),
                     SizedBox(height: 20.h),
                   ],
@@ -190,9 +201,11 @@ class _LoginPageState extends State<LoginPage> {
         if (state is LoginFailed) {
           AppDialogAction.showFailedPopup(
             context: context,
-            title: "Something's wrong",
+            // title: "Something's wrong",
+            title: AppLocalizations.of(context)!.textTitlePopupFailed,
             description: state.errorMessage,
-            buttonTitle: "Back",
+            // buttonTitle: "Back",
+            buttonTitle: AppLocalizations.of(context)!.btnBack,
           );
         }
         if (state is LoginSuccess) {
