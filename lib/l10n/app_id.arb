@@ -78,5 +78,33 @@
   "textDetailStory": "Detail Cerita",
   "@textDetailStory": {
     "description": "Text Detail Cerita"
+  },
+  "textTitlePopupFailed": "Terjadi Kesalahan",
+  "@textTitlePopupFailed": {
+    "description": "Text Terjadi Kesalahan"
+  },
+  "textDescriptionPopupFailed1": "Beberapa field belum terisi",
+  "@textDescriptionPopupFailed1": {
+    "description": "Text Beberapa field belum terisi"
+  },
+  "textDescriptionPopupFailed2": "Masih ada field yang belum terisi",
+  "@textDescriptionPopupFailed2": {
+    "description": "Text Masih ada field yang belum terisi"
+  },
+  "btnBack": "Kembali",
+  "@btnBack": {
+    "description": "Text Kembali"
+  },
+  "textTitlePopupSuccess": "Berhasil",
+  "@textTitlePopupSuccess": {
+    "description": "Text Berhasil"
+  },
+  "textToLoginPage": "Ke Halaman Login",
+  "@textToLoginPage": {
+    "description": "Text Ke Halaman Login"
+  },
+  "textSuccessCreateAccount": "Berhasil mendaftar akun",
+  "@textSuccessCreateAccount": {
+    "description": "Text Berhasil Mendaftar Akun"
   }
 }

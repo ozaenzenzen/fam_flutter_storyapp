@@ -18,5 +18,12 @@
   "textBrowseFile": "Browse File",
   "textSubmit": "Subnit",
   "textAddNewStory": "Add New Story",
-  "textDetailStory": "Detail Story"
+  "textDetailStory": "Detail Story",
+  "textTitlePopupFailed": "Something's wrong",
+  "textDescriptionPopupFailed1": "Some field required is not filled",
+  "textDescriptionPopupFailed2": "There's still empty field",
+  "btnBack": "Back",
+  "textTitlePopupSuccess": "Success",
+  "textToLoginPage": "Route to Login Page",
+  "textSuccessCreateAccount": "Success create account"
 }
