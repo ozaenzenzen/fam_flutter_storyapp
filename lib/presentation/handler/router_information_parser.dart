@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppRouteInformationParser extends RouteInformationParser<PageConfiguration> {
   @override
   Future<PageConfiguration> parseRouteInformation(RouteInformation routeInformation) async {
-    final uri = routeInformation.uri;
+    final uri = Uri.parse(routeInformation.location!);
 
     if (uri.pathSegments.isEmpty) {
       // without path parameter => "/"
@@ -41,17 +41,17 @@ class AppRouteInformationParser extends RouteInformationParser<PageConfiguration
   @override
   RouteInformation? restoreRouteInformation(PageConfiguration configuration) {
     if (configuration.isUnknownPage) {
-      return RouteInformation(uri: Uri.parse('/unknown'));
+      return const RouteInformation(location: '/unknown');
     } else if (configuration.isSplashPage) {
-      return RouteInformation(uri: Uri.parse('/splash'));
+      return const RouteInformation(location: '/splash');
     } else if (configuration.isRegisterPage) {
-      return RouteInformation(uri: Uri.parse('/register'));
+      return const RouteInformation(location: '/register');
     } else if (configuration.isLoginPage) {
-      return RouteInformation(uri: Uri.parse('/login'));
+      return const RouteInformation(location: '/login');
     } else if (configuration.isHomePage) {
-      return RouteInformation(uri: Uri.parse('/'));
+      return const RouteInformation(location: '/');
     } else if (configuration.isDetailPage) {
-      return RouteInformation(uri: Uri.parse('/story/${configuration.idStory}'));
+      return RouteInformation(location: '/story/${configuration.idStory}');
     } else {
       return null;
     }
