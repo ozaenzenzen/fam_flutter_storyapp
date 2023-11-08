@@ -27,7 +27,9 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
       await Future.delayed(const Duration(seconds: 1));
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
-        GetAllStoryResponseModel? getAllStoryResponseModel = await StoriesRepository().getAllStory(userDataModel.token!);
+        GetAllStoryResponseModel? getAllStoryResponseModel = await StoriesRepository().getAllStory(
+          token: userDataModel.token!,
+        );
         if (getAllStoryResponseModel != null) {
           if (getAllStoryResponseModel.error == false) {
             emit(GetAllStorySuccess(getAllStoryResponseModel: getAllStoryResponseModel));
