@@ -59,12 +59,17 @@ class StoriesRepository {
     }
   }
 
-  Future<GetAllStoryResponseModel?> getAllStory(String token) async {
+  Future<GetAllStoryResponseModel?> getAllStory({
+    required String token,
+    String page = "1",
+    String size = "10",
+    String location = "1",
+  }) async {
     try {
       final response = await AppApiService(
         EnvironmentConfig.baseUrl(),
       ).call(
-        AppApiPath.stories,
+        "${AppApiPath.stories}?page=$page&size=$size&location=$location",
         token: token,
         method: MethodRequest.get,
       );
