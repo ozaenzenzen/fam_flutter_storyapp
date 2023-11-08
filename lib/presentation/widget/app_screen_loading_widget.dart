@@ -2,6 +2,7 @@ import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum AppScreenLoadingWidgetStyle { withBackground, noBackground }
 
@@ -42,7 +43,8 @@ class AppScreenLoadingWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Text(
-                    "Loading... Please wait",
+                    // "Loading... Please wait",
+                    AppLocalizations.of(context)!.textLoading,
                     style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 18.sp,
@@ -64,7 +66,8 @@ class AppScreenLoadingWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h),
                 Text(
-                  "Loading... Please wait",
+                  // "Loading... Please wait",
+                  AppLocalizations.of(context)!.textLoading,
                   style: GoogleFonts.inter(
                     color: Colors.white,
                     fontSize: 18.sp,

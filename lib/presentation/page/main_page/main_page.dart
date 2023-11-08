@@ -1,8 +1,6 @@
-import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_page.dart';
-import 'package:fam_flutter_storyapp/presentation/page/detail_story_page/detail_story_page.dart';
-import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
+import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +8,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final Function(String)? onTapToDetail;
+  final Function()? onAddStory;
+  final Function()? onSettings;
+  final Function()? onLogout;
+
+  const MainPage({
+    super.key,
+    this.onTapToDetail,
+    this.onLogout,
+    this.onSettings,
+    this.onAddStory,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -30,24 +40,33 @@ class _MainPageState extends State<MainPage> {
     return BlocListener<LogoutBloc, LogoutState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const LoginPage();
-              },
-            ),
-            (route) => false,
-          );
+          widget.onLogout?.call();
         }
       },
       child: WillPopScope(
         onWillPop: () async {
-          return false;
+          return true;
         },
         child: Scaffold(
-          appBar: const AppAppBarWidget(
+          appBar: AppAppBarWidget(
             title: 'FAM - Story App',
+            automaticallyImplyLeading: false,
+            actions: [
+              InkWell(
+                onTap: () {
+                  widget.onSettings?.call();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  child: const Icon(
+                    Icons.menu_outlined,
+                  ),
+                ),
+              ),
+            ],
           ),
           body: RefreshIndicator(
             onRefresh: () async {
@@ -89,16 +108,7 @@ class _MainPageState extends State<MainPage> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DetailStoryPage(
-                                      idStory: state.getAllStoryResponseModel.listStory![index].id!,
-                                    );
-                                  },
-                                ),
-                              );
+                              widget.onTapToDetail?.call(state.getAllStoryResponseModel.listStory![index].id!);
                             },
                             child: Container(
                               decoration: const BoxDecoration(
@@ -192,7 +202,8 @@ class _MainPageState extends State<MainPage> {
                 label: Row(
                   children: [
                     Text(
-                      "Add Story",
+                      // "Add Story",
+                      AppLocalizations.of(context)!.textAddStory,
                       style: GoogleFonts.inter(
                         fontSize: 14.sp,
                         color: Colors.white,
@@ -208,19 +219,7 @@ class _MainPageState extends State<MainPage> {
                 heroTag: "btn1",
                 backgroundColor: AppColor.primary,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AddStoryPage(
-                          actionCallback: () {
-                            Navigator.pop(context);
-                            context.read<GetAllStoryBloc>().add(ActionGetAllStory());
-                          },
-                        );
-                      },
-                    ),
-                  );
+                  widget.onAddStory?.call();
                 },
                 tooltip: 'Increment',
               ),
@@ -229,7 +228,8 @@ class _MainPageState extends State<MainPage> {
                 label: Row(
                   children: [
                     Text(
-                      "Logout",
+                      // "Logout",
+                      AppLocalizations.of(context)!.textLogout,
                       style: GoogleFonts.inter(
                         fontSize: 14.sp,
                         color: Colors.white,
