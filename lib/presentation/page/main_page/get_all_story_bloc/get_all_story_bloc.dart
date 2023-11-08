@@ -29,6 +29,9 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
       if (userDataModel != null) {
         GetAllStoryResponseModel? getAllStoryResponseModel = await StoriesRepository().getAllStory(
           token: userDataModel.token!,
+          page: event.page,
+          size: event.size,
+          location: event.location,
         );
         if (getAllStoryResponseModel != null) {
           if (getAllStoryResponseModel.error == false) {
