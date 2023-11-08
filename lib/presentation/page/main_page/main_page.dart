@@ -29,10 +29,45 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late ScrollController scrollController;
+
+  int pageItems = 1;
+  int sizeItems = 10;
+
   @override
   void initState() {
-    BlocProvider.of<GetAllStoryBloc>(context).add(ActionGetAllStory());
     super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+      // if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+      //   // setState(() {
+      //   //   message = "reach the bottom";
+      //   // });
+      //   debugPrint('reach the bottom');
+      // }
+      // if (scrollController.offset <= scrollController.position.minScrollExtent && !scrollController.position.outOfRange) {
+      //   // setState(() {
+      //   //   message = "reach the top";
+      //   // });
+      //   debugPrint('reach the top');
+      // }
+      if (scrollController.position.pixels >= scrollController.position.maxScrollExtent) {
+        pageItems = pageItems + 1;
+        debugPrint("pageItems ${pageItems}");
+        // BlocProvider.of<GetAllStoryBloc>(context).add(ActionGetAllStory(
+        //   page: "1",
+        //   size: "10",
+        //   location: "1",
+        // ));
+      }
+    });
+    BlocProvider.of<GetAllStoryBloc>(context).add(ActionGetAllStory());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
@@ -74,6 +109,7 @@ class _MainPageState extends State<MainPage> {
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
+              controller: scrollController,
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: 16.w,
@@ -102,6 +138,7 @@ class _MainPageState extends State<MainPage> {
                       );
                     } else if (state is GetAllStorySuccess) {
                       return ListView.separated(
+                        // controller: scrollController,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: state.getAllStoryResponseModel.listStory == null ? 0 : state.getAllStoryResponseModel.listStory!.length,
