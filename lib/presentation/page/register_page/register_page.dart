@@ -173,14 +173,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: 20.h),
                     AppMainButtonWidget(
                       onPressed: () {
-                        // Navigator.pop(context);
-                        // Navigator.of(context, rootNavigator: true).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return const LoginPage();
-                        //     },
-                        //   ),
-                        // );
                         widget.onLogin?.call();
                       },
                       // text: "Login",
@@ -230,16 +222,6 @@ class _RegisterPageState extends State<RegisterPage> {
             buttonTitle: AppLocalizations.of(context)!.textToLoginPage,
             mainButtonAction: () {
               widget.onLogin?.call();
-              // Navigator.pop(context);
-              // Navigator.pop(context);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) {
-              //       return const MainPage();
-              //     },
-              //   ),
-              // );
             },
           );
         }

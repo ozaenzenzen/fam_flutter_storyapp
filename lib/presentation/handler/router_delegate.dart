@@ -8,6 +8,7 @@ import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dar
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/main_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_page.dart';
+import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,6 +27,7 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
   bool? isUnknownPage;
   bool? isRegister = false;
   bool? isAddStory = false;
+  bool? isSettings = false;
 
   String? idStory;
 
@@ -79,6 +81,8 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
         }
 
         isRegister = false;
+        isAddStory = false;
+        isSettings = false;
         idStory = null;
         notifyListeners();
 
@@ -191,6 +195,10 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
               isLoggedIn = false;
               notifyListeners();
             },
+            onSettings: () {
+              isSettings = true;
+              notifyListeners();
+            },
           ),
         ),
         if (isAddStory == true)
@@ -202,7 +210,6 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
                 notifyListeners();
               },
               actionCallback: (BuildContext context) {
-                // Navigator.pop(context);
                 isAddStory = false;
                 BlocProvider.of<GetAllStoryBloc>(context).add(ActionGetAllStory());
                 notifyListeners();
@@ -214,6 +221,16 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
             key: const ValueKey("DetailStoryPage"),
             child: DetailStoryPage(
               idStory: idStory!,
+            ),
+          ),
+        if (isSettings == true)
+          MaterialPage(
+            key: const ValueKey("SettingsPage"),
+            child: SettingsPage(
+              onBack: () {
+                isSettings = false;
+                notifyListeners();
+              },
             ),
           ),
       ];

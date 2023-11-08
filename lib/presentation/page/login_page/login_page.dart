@@ -161,14 +161,6 @@ class _LoginPageState extends State<LoginPage> {
                     AppMainButtonWidget(
                       onPressed: () {
                         widget.onRegister?.call();
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return const RegisterPage();
-                        //     },
-                        //   ),
-                        // );
                       },
                       // text: "Register",
                       text: AppLocalizations.of(context)!.btnRegister,
@@ -208,14 +200,6 @@ class _LoginPageState extends State<LoginPage> {
         }
         if (state is LoginSuccess) {
           widget.onLogin?.call();
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) {
-          //       return const MainPage();
-          //     },
-          //   ),
-          // );
         }
       },
     );

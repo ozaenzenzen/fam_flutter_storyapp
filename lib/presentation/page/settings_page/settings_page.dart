@@ -8,7 +8,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final Function()? onBack;
+
+  const SettingsPage({
+    super.key,
+    this.onBack,
+  });
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -22,6 +27,9 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppAppBarWidget(
         title: AppLocalizations.of(context)!.textSettings,
+        onBack: () {
+          widget.onBack?.call();
+        },
       ),
       body: Container(
         padding: EdgeInsets.symmetric(

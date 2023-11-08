@@ -13,12 +13,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class MainPage extends StatefulWidget {
   final Function(String)? onTapToDetail;
   final Function()? onAddStory;
+  final Function()? onSettings;
   final Function()? onLogout;
 
   const MainPage({
     super.key,
     this.onTapToDetail,
     this.onLogout,
+    this.onSettings,
     this.onAddStory,
   });
 
@@ -38,20 +40,12 @@ class _MainPageState extends State<MainPage> {
     return BlocListener<LogoutBloc, LogoutState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
-          // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-          //   MaterialPageRoute(
-          //     builder: (context) {
-          //       return const LoginPage();
-          //     },
-          //   ),
-          //   (route) => false,
-          // );
           widget.onLogout?.call();
         }
       },
       child: WillPopScope(
         onWillPop: () async {
-          return false;
+          return true;
         },
         child: Scaffold(
           appBar: AppAppBarWidget(
@@ -60,14 +54,7 @@ class _MainPageState extends State<MainPage> {
             actions: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SettingsPage();
-                      },
-                    ),
-                  );
+                  widget.onSettings?.call();
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -122,16 +109,6 @@ class _MainPageState extends State<MainPage> {
                           return InkWell(
                             onTap: () {
                               widget.onTapToDetail?.call(state.getAllStoryResponseModel.listStory![index].id!);
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) {
-                              //       return DetailStoryPage(
-                              //         idStory: state.getAllStoryResponseModel.listStory![index].id!,
-                              //       );
-                              //     },
-                              //   ),
-                              // );
                             },
                             child: Container(
                               decoration: const BoxDecoration(
@@ -243,19 +220,6 @@ class _MainPageState extends State<MainPage> {
                 backgroundColor: AppColor.primary,
                 onPressed: () {
                   widget.onAddStory?.call();
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return AddStoryPage(
-                  //         actionCallback: () {
-                  //           Navigator.pop(context);
-                  //           context.read<GetAllStoryBloc>().add(ActionGetAllStory());
-                  //         },
-                  //       );
-                  //     },
-                  //   ),
-                  // );
                 },
                 tooltip: 'Increment',
               ),

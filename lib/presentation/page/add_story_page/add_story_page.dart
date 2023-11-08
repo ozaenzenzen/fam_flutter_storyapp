@@ -269,7 +269,6 @@ class _AddStoryPageState extends State<AddStoryPage> {
             children: [
               InkWell(
                 onTap: () async {
-                  Navigator.pop(context);
                   addStoryPickImageBloc.add(ActionPickImage(type: ImageSource.gallery));
                 },
                 child: Container(
@@ -308,7 +307,6 @@ class _AddStoryPageState extends State<AddStoryPage> {
               SizedBox(width: 20.w),
               InkWell(
                 onTap: () async {
-                  Navigator.pop(context);
                   addStoryPickImageBloc.add(ActionPickImage(type: ImageSource.camera));
                 },
                 child: Container(
