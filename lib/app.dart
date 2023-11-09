@@ -56,9 +56,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => ShowPasswordRegisterBloc(),
         ),
-        BlocProvider(
-          create: (context) => GetAllStoryBloc(),
-        ),
+        // BlocProvider(
+        //   create: (context) => GetAllStoryBloc(),
+        // ),
         BlocProvider(
           create: (context) => GetDetailStoryBloc(),
         ),

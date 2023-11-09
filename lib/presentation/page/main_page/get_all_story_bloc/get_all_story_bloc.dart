@@ -19,23 +19,45 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
     });
   }
 
+  int? pageItems = 1;
+  int sizeItems = 10;
+
+  List<ListStory> listStoryHolder = [];
+
   Future<void> actionGetAllStoryFunc(
     ActionGetAllStory event,
   ) async {
     emit(GetAllStoryLoading());
+    await Future.delayed(const Duration(seconds: 2));
     try {
-      await Future.delayed(const Duration(seconds: 1));
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
         GetAllStoryResponseModel? getAllStoryResponseModel = await StoriesRepository().getAllStory(
           token: userDataModel.token!,
-          page: event.page,
-          size: event.size,
+          page: pageItems.toString(),
+          size: sizeItems.toString(),
+          // page: event.page,
+          // size: event.size,
           location: event.location,
         );
         if (getAllStoryResponseModel != null) {
           if (getAllStoryResponseModel.error == false) {
-            emit(GetAllStorySuccess(getAllStoryResponseModel: getAllStoryResponseModel));
+            if (event.actionGetAllStoryType == ActionGetAllStoryType.refresh) {
+              listStoryHolder.clear();
+              pageItems = 1;
+            }
+            listStoryHolder.addAll(getAllStoryResponseModel.listStory!);
+
+            /// todo-04-01: set the pageItems to null when the result is not the same as before
+            if (listStoryHolder.length < sizeItems) {
+              pageItems = null;
+            } else {
+              /// todo-01-04: increase the page after the API request is done
+              pageItems = pageItems! + 1;
+            }
+            print('pageITems now $pageItems');
+            emit(GetAllStorySuccess(listStory: listStoryHolder));
+            // emit(GetAllStorySuccess(getAllStoryResponseModel: getAllStoryResponseModel));
           } else {
             emit(GetAllStoryFailed(errorMessage: getAllStoryResponseModel.message!));
           }

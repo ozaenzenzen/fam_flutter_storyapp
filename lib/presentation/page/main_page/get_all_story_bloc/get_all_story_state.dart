@@ -8,8 +8,10 @@ final class GetAllStoryInitial extends GetAllStoryState {}
 final class GetAllStoryLoading extends GetAllStoryState {}
 
 final class GetAllStorySuccess extends GetAllStoryState {
-  final GetAllStoryResponseModel getAllStoryResponseModel;
-  GetAllStorySuccess({required this.getAllStoryResponseModel});
+  final List<ListStory> listStory;
+  GetAllStorySuccess({required this.listStory});
+  // final GetAllStoryResponseModel getAllStoryResponseModel;
+  // GetAllStorySuccess({required this.getAllStoryResponseModel});
 }
 
 final class GetAllStoryFailed extends GetAllStoryState {
