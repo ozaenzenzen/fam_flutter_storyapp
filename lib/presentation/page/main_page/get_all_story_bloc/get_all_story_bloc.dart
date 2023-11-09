@@ -22,13 +22,20 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
   int? pageItems = 1;
   int sizeItems = 10;
 
+  ActionGetAllStoryType actionGetAllStoryType = ActionGetAllStoryType.refresh;
+
   List<ListStory> listStoryHolder = [];
 
   Future<void> actionGetAllStoryFunc(
     ActionGetAllStory event,
   ) async {
-    emit(GetAllStoryLoading());
+    // if (pageItems == 1) {
+    emit(GetAllStoryLoading(
+      listStory: listStoryHolder,
+      actionGetAllStoryType: event.actionGetAllStoryType,
+    ));
     await Future.delayed(const Duration(seconds: 2));
+    // }
     try {
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
@@ -42,6 +49,7 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
         );
         if (getAllStoryResponseModel != null) {
           if (getAllStoryResponseModel.error == false) {
+            actionGetAllStoryType = event.actionGetAllStoryType;
             if (event.actionGetAllStoryType == ActionGetAllStoryType.refresh) {
               listStoryHolder.clear();
               pageItems = 1;
@@ -56,7 +64,10 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
               pageItems = pageItems! + 1;
             }
             print('pageITems now $pageItems');
-            emit(GetAllStorySuccess(listStory: listStoryHolder));
+            emit(GetAllStorySuccess(
+              listStory: listStoryHolder,
+              actionGetAllStoryType: event.actionGetAllStoryType,
+            ));
             // emit(GetAllStorySuccess(getAllStoryResponseModel: getAllStoryResponseModel));
           } else {
             emit(GetAllStoryFailed(errorMessage: getAllStoryResponseModel.message!));

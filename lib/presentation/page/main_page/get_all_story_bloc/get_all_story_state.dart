@@ -5,11 +5,24 @@ sealed class GetAllStoryState {}
 
 final class GetAllStoryInitial extends GetAllStoryState {}
 
-final class GetAllStoryLoading extends GetAllStoryState {}
+final class GetAllStoryLoading extends GetAllStoryState {
+  final List<ListStory> listStory;
+  final ActionGetAllStoryType actionGetAllStoryType;
+
+  GetAllStoryLoading({
+    required this.actionGetAllStoryType,
+    required this.listStory,
+  });
+}
 
 final class GetAllStorySuccess extends GetAllStoryState {
   final List<ListStory> listStory;
-  GetAllStorySuccess({required this.listStory});
+  final ActionGetAllStoryType actionGetAllStoryType;
+
+  GetAllStorySuccess({
+    required this.actionGetAllStoryType,
+    required this.listStory,
+  });
   // final GetAllStoryResponseModel getAllStoryResponseModel;
   // GetAllStorySuccess({required this.getAllStoryResponseModel});
 }
