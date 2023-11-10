@@ -32,9 +32,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late ScrollController scrollController = ScrollController();
 
-  int pageItems = 1;
-  int sizeItems = 10;
-
   onScroll() {
     final maxScroll = scrollController.position.maxScrollExtent;
     final currentScroll = scrollController.offset;
@@ -90,7 +87,7 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     super.dispose();
     scrollController
-      ..removeListener(onScrollV2)
+      ..removeListener(onScrollV1)
       ..dispose();
   }
 
