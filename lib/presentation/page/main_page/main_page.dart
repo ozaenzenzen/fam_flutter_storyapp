@@ -156,20 +156,14 @@ class _MainPageState extends State<MainPage> {
                       return loadingState();
                     }
                     List<ListStory> listStoryViewHandler = [];
-                    bool isLoading = false;
-
                     if (state is GetAllStoryLoading) {
                       listStoryViewHandler = state.listStory;
-                      isLoading = true;
                     } else if (state is GetAllStorySuccess) {
                       listStoryViewHandler = state.listStory;
+                    } else if (state is GetAllStoryFailed) {
+                      listStoryViewHandler = [];
                     }
-                    // if (state is GetAllStorySuccess) {
                     return successState(listStoryViewHandler);
-                    // }
-                    // else {
-                    //   return emptyState();
-                    // }
                   },
                 ),
               ),
@@ -183,95 +177,101 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget successState(List<ListStory> listStory) {
-    return ListView.separated(
-      controller: scrollController,
-      itemCount: listStory.length + (getAllStoryBloc.pageItems != null ? 1 : 0),
-      itemBuilder: (context, index) {
-        if (index == getAllStoryBloc.listStoryHolder.length && getAllStoryBloc.pageItems != null) {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: CircularProgressIndicator(
-                color: AppColor.primary,
+    if (listStory.isEmpty) {
+      return emptyState();
+    } else {
+      return ListView.separated(
+        controller: scrollController,
+        itemCount: listStory.isEmpty ? 0 : listStory.length + (getAllStoryBloc.pageItems != null ? 1 : 0),
+        itemBuilder: (context, index) {
+          if (index == getAllStoryBloc.listStoryHolder.length && getAllStoryBloc.pageItems != null) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: CircularProgressIndicator(
+                  color: AppColor.primary,
+                ),
+              ),
+            );
+          }
+          return InkWell(
+            onTap: () {
+              widget.onTapToDetail?.call(listStory[index].id!);
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 5,
+                    spreadRadius: 0.5,
+                    color: Colors.black26,
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network(
+                    "${listStory[index].photoUrl}",
+                    height: 150.h,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return SizedBox(
+                        height: 160.h,
+                        child: Center(
+                          child: Text(
+                            "Something's wrong, please reload",
+                            style: GoogleFonts.inter(),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(12.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${(index + 1)}. ${listStory[index].name}",
+                          style: GoogleFonts.inter(
+                            fontSize: 18.sp,
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          "${listStory[index].description}",
+                          style: GoogleFonts.inter(
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           );
-        }
-        return InkWell(
-          onTap: () {
-            widget.onTapToDetail?.call(listStory[index].id!);
-          },
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 5,
-                  spreadRadius: 0.5,
-                  color: Colors.black26,
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
-                  "${listStory[index].photoUrl}",
-                  height: 150.h,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return SizedBox(
-                      height: 160.h,
-                      child: Center(
-                        child: Text(
-                          "Something's wrong, please reload",
-                          style: GoogleFonts.inter(),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                Container(
-                  padding: EdgeInsets.all(12.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${(index + 1)}. ${listStory[index].name}",
-                        style: GoogleFonts.inter(
-                          fontSize: 18.sp,
-                        ),
-                      ),
-                      SizedBox(height: 5.h),
-                      Text(
-                        "${listStory[index].description}",
-                        style: GoogleFonts.inter(
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return SizedBox(
-          height: 16.h,
-        );
-      },
-    );
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(
+            height: 16.h,
+          );
+        },
+      );
+    }
   }
 
   Widget emptyState() {
-    return Container(
-      color: Colors.transparent,
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.transparent,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+      ),
     );
   }
 
