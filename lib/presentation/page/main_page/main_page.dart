@@ -175,13 +175,16 @@ class _MainPageState extends State<MainPage> {
 
   Widget successState(List<ListStory> listStory) {
     if (listStory.isEmpty) {
-      return emptyState();
+      return emptyState(
+        text: "Empty data",
+      );
     } else {
       return ListView.separated(
         controller: scrollController,
         itemCount: listStory.isEmpty ? 0 : listStory.length + (getAllStoryBloc.pageItems != null ? 1 : 0),
         itemBuilder: (context, index) {
-          if (index == getAllStoryBloc.listStoryHolder.length && getAllStoryBloc.pageItems != null) {
+          // if (index == getAllStoryBloc.listStoryHolder.length && getAllStoryBloc.pageItems != null) {
+          if (index == listStory.length && getAllStoryBloc.pageItems != null) {
             return const Center(
               child: Padding(
                 padding: EdgeInsets.all(8),
@@ -262,12 +265,20 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  Widget emptyState() {
+  Widget emptyState({String? text}) {
     return SingleChildScrollView(
       child: Container(
         color: Colors.transparent,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: Text(
+            text ?? "",
+            style: GoogleFonts.inter(
+              fontSize: 16.sp,
+            ),
+          ),
+        ),
       ),
     );
   }

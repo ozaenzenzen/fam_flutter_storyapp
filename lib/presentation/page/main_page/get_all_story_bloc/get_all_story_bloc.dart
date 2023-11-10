@@ -63,7 +63,7 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
               /// todo-01-04: increase the page after the API request is done
               pageItems = pageItems! + 1;
             }
-            print('pageITems now $pageItems');
+            // print('pageITems now $pageItems');
             emit(GetAllStorySuccess(
               listStory: listStoryHolder,
               actionGetAllStoryType: event.actionGetAllStoryType,
@@ -73,6 +73,7 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
             emit(GetAllStoryFailed(errorMessage: getAllStoryResponseModel.message!));
           }
         } else {
+          listStoryHolder.clear();
           emit(GetAllStoryFailed(errorMessage: "Empty data"));
         }
       } else {
