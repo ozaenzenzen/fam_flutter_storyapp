@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
         actionGetAllStoryType: ActionGetAllStoryType.infiniteScroll,
         // page: "1",
         // size: "10",
-        location: "1",
+        location: "0",
       ));
     }
   }
@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
           actionGetAllStoryType: ActionGetAllStoryType.infiniteScroll,
           // page: "1",
           // size: "10",
-          location: "1",
+          location: "0",
         ));
       }
     }
@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> {
         actionGetAllStoryType: ActionGetAllStoryType.infiniteScroll,
         // page: "1",
         // size: "10",
-        location: "1",
+        location: "0",
       ));
     }
     if (scrollController.offset <= scrollController.position.minScrollExtent && !scrollController.position.outOfRange) {
