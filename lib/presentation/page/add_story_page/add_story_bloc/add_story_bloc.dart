@@ -6,6 +6,7 @@ import 'package:fam_flutter_storyapp/data/model/response/add_story_response_mode
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/stories_repository.dart';
 import 'package:fam_flutter_storyapp/domain/entities/user_data_model.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:meta/meta.dart';
 
 part 'add_story_event.dart';
@@ -24,6 +25,10 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
     emit(AddStoryLoading());
     try {
       UserDataModel? userDataModel = await LocalRepository.getUserData();
+      Position currentPosition = await Geolocator.getCurrentPosition();
+      AddStoryRequestModel dataReq = event.addStoryRequestModel;
+      dataReq.lat = currentPosition.latitude;
+      dataReq.lon = currentPosition.longitude;
       if (userDataModel != null) {
         AddStoryResponseModel? addStoryResponseModel = await StoriesRepository().addStory(
           event.addStoryRequestModel,
