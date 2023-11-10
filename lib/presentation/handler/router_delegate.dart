@@ -211,7 +211,12 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
               },
               actionCallback: (BuildContext context) {
                 isAddStory = false;
-                BlocProvider.of<GetAllStoryBloc>(context).add(ActionGetAllStory());
+                // BlocProvider.of<GetAllStoryBloc>(context, listen: false).add(ActionGetAllStory());
+                BlocProvider<GetAllStoryBloc>(
+                  create: (context) {
+                    return GetAllStoryBloc()..add(ActionGetAllStory());
+                  },
+                );
                 notifyListeners();
               },
             ),
