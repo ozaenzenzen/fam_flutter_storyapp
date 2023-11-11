@@ -22,7 +22,7 @@ class GetDetailStoryBloc extends Bloc<GetDetailStoryEvent, GetDetailStoryState> 
   Future<void> actionGetDetailStoryFunc(ActionGetDetailStory event) async {
     emit(GetDetailStoryLoading());
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      // await Future.delayed(const Duration(seconds: 1));
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
         GetDetailStoryResponseModel? getDetailStoryResponseModel = await StoriesRepository().getDetailStory(
