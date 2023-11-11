@@ -127,8 +127,8 @@ class _MyAppState extends State<MyApp> {
                 : AppColor.primary,
         textDirection: TextDirection.ltr,
         layoutDirection: TextDirection.ltr,
-        textStyle: TextStyle(
-          fontSize: 14.sp,
+        textStyle: const TextStyle(
+          fontSize: 14,
           fontWeight: FontWeight.w700,
           letterSpacing: 1.0,
         ),
