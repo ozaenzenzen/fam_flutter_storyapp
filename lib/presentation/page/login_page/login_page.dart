@@ -5,8 +5,10 @@ import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_screen_loading_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_textfield_widget.dart';
+import 'package:fam_flutter_storyapp/presentation/widget/app_version_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:fam_flutter_storyapp/support/app_dialog_action.dart';
+import 'package:fam_flutter_storyapp/support/app_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,126 +51,131 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.h,
-                  vertical: 16.h,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 130.h),
-                    Text(
-                      // "Login Page",
-                      AppLocalizations.of(context)!.titleLoginPage,
-                      style: GoogleFonts.inter(
-                        color: Colors.black,
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+            Stack(
+              children: [
+                const AppVersionWidget(),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.h,
+                      vertical: 16.h,
                     ),
-                    SizedBox(height: 40.h),
-                    AppTextFieldWidget(
-                      textFieldTitle: "Email / Username",
-                      textFieldHintText: "Email / Username",
-                      controller: emailTextFieldController,
-                    ),
-                    SizedBox(height: 10.h),
-                    BlocBuilder<ShowPasswordLoginBloc, ShowPasswordLoginState>(
-                      builder: (context, state) {
-                        if (state is ShowPasswordLoginFalse) {
-                          return AppTextFieldWidget(
-                            // textFieldTitle: "Password",
-                            // textFieldHintText: "Password",
-                            textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
-                            textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
-                            controller: passwordTextFieldController,
-                            obscureText: true,
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                context.read<ShowPasswordLoginBloc>().add(ActionShowPasswordLogin(value: false));
-                              },
-                              icon: const Icon(
-                                Icons.remove_red_eye,
-                                color: AppColor.disabled,
-                              ),
-                            ),
-                          );
-                        } else {
-                          return AppTextFieldWidget(
-                            // textFieldTitle: "Password",
-                            // textFieldHintText: "Password",
-                            textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
-                            textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
-                            controller: passwordTextFieldController,
-                            obscureText: false,
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                context.read<ShowPasswordLoginBloc>().add(ActionShowPasswordLogin(value: true));
-                              },
-                              icon: const Icon(
-                                Icons.remove_red_eye,
-                                color: AppColor.primary,
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                    SizedBox(height: 20.h),
-                    AppMainButtonWidget(
-                      onPressed: () {
-                        if (emailTextFieldController.text.isEmpty || passwordTextFieldController.text.isEmpty) {
-                          AppDialogAction.showFailedPopup(
-                            context: context,
-                            // title: "Something's wrong",
-                            // description: "There's still empty field",
-                            // buttonTitle: 'Back',
-                            title: AppLocalizations.of(context)!.textTitlePopupFailed,
-                            description: AppLocalizations.of(context)!.textDescriptionPopupFailed2,
-                            buttonTitle: AppLocalizations.of(context)!.btnBack,
-                          );
-                        } else {
-                          context.read<LoginBloc>().add(
-                                ActionLogin(
-                                  loginRequestModel: LoginRequestModel(
-                                    email: emailTextFieldController.text,
-                                    password: passwordTextFieldController.text,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 130.h),
+                        Text(
+                          // "Login Page",
+                          AppLocalizations.of(context)!.titleLoginPage,
+                          style: GoogleFonts.inter(
+                            color: Colors.black,
+                            fontSize: 28.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 40.h),
+                        AppTextFieldWidget(
+                          textFieldTitle: "Email / Username",
+                          textFieldHintText: "Email / Username",
+                          controller: emailTextFieldController,
+                        ),
+                        SizedBox(height: 10.h),
+                        BlocBuilder<ShowPasswordLoginBloc, ShowPasswordLoginState>(
+                          builder: (context, state) {
+                            if (state is ShowPasswordLoginFalse) {
+                              return AppTextFieldWidget(
+                                // textFieldTitle: "Password",
+                                // textFieldHintText: "Password",
+                                textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
+                                textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
+                                controller: passwordTextFieldController,
+                                obscureText: true,
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    context.read<ShowPasswordLoginBloc>().add(ActionShowPasswordLogin(value: false));
+                                  },
+                                  icon: const Icon(
+                                    Icons.remove_red_eye,
+                                    color: AppColor.disabled,
                                   ),
-                                  accountRepository: AccountRepository(),
                                 ),
                               );
-                        }
-                      },
-                      // text: 'Login',
-                      text: AppLocalizations.of(context)!.btnLogin,
-                    ),
-                    SizedBox(height: 20.h),
-                    Center(
-                      child: Text(
-                        // "Belum Ada Akun?",
-                        AppLocalizations.of(context)!.textDontHaveAccount,
-                        style: GoogleFonts.inter(
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
+                            } else {
+                              return AppTextFieldWidget(
+                                // textFieldTitle: "Password",
+                                // textFieldHintText: "Password",
+                                textFieldTitle: AppLocalizations.of(context)!.textFieldPassword,
+                                textFieldHintText: AppLocalizations.of(context)!.textFieldPassword,
+                                controller: passwordTextFieldController,
+                                obscureText: false,
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    context.read<ShowPasswordLoginBloc>().add(ActionShowPasswordLogin(value: true));
+                                  },
+                                  icon: const Icon(
+                                    Icons.remove_red_eye,
+                                    color: AppColor.primary,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                         ),
-                      ),
+                        SizedBox(height: 20.h),
+                        AppMainButtonWidget(
+                          onPressed: () {
+                            if (emailTextFieldController.text.isEmpty || passwordTextFieldController.text.isEmpty) {
+                              AppDialogAction.showFailedPopup(
+                                context: context,
+                                // title: "Something's wrong",
+                                // description: "There's still empty field",
+                                // buttonTitle: 'Back',
+                                title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                                description: AppLocalizations.of(context)!.textDescriptionPopupFailed2,
+                                buttonTitle: AppLocalizations.of(context)!.btnBack,
+                              );
+                            } else {
+                              context.read<LoginBloc>().add(
+                                    ActionLogin(
+                                      loginRequestModel: LoginRequestModel(
+                                        email: emailTextFieldController.text,
+                                        password: passwordTextFieldController.text,
+                                      ),
+                                      accountRepository: AccountRepository(),
+                                    ),
+                                  );
+                            }
+                          },
+                          // text: 'Login',
+                          text: AppLocalizations.of(context)!.btnLogin,
+                        ),
+                        SizedBox(height: 20.h),
+                        Center(
+                          child: Text(
+                            // "Belum Ada Akun?",
+                            AppLocalizations.of(context)!.textDontHaveAccount,
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20.h),
+                        AppMainButtonWidget(
+                          onPressed: () {
+                            widget.onRegister?.call();
+                          },
+                          // text: "Register",
+                          text: AppLocalizations.of(context)!.btnRegister,
+                        ),
+                        SizedBox(height: 20.h),
+                      ],
                     ),
-                    SizedBox(height: 20.h),
-                    AppMainButtonWidget(
-                      onPressed: () {
-                        widget.onRegister?.call();
-                      },
-                      // text: "Register",
-                      text: AppLocalizations.of(context)!.btnRegister,
-                    ),
-                    SizedBox(height: 20.h),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
             loadingState(),
             // const AppScreenLoadingWidget(),

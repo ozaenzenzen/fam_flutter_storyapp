@@ -1,4 +1,5 @@
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
+import 'package:fam_flutter_storyapp/presentation/widget/app_version_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_localization.dart';
 import 'package:fam_flutter_storyapp/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -31,93 +32,98 @@ class _SettingsPageState extends State<SettingsPage> {
           widget.onBack?.call();
         },
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: 16.h,
-          horizontal: 16.h,
-        ),
-        child: Column(
-          children: [
-            DropdownButtonHideUnderline(
-              child: DropdownButton(
-                hint: Text(
-                  AppLocalizations.of(context)!.textLanguage,
-                  style: GoogleFonts.inter(
-                    fontSize: 16.sp,
-                  ),
-                ),
-                icon: const Icon(Icons.flag),
-                items: AppLocalizations.supportedLocales.map((Locale locale) {
-                  final flag = Localization.getFlag(locale.languageCode);
-                  return DropdownMenuItem(
-                    value: locale,
-                    child: Center(
-                      child: Text(
-                        flag,
-                        style: GoogleFonts.inter(),
+      body: Stack(
+        children: [
+          const AppVersionWidget(),
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: 16.h,
+              horizontal: 16.h,
+            ),
+            child: Column(
+              children: [
+                DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    hint: Text(
+                      AppLocalizations.of(context)!.textLanguage,
+                      style: GoogleFonts.inter(
+                        fontSize: 16.sp,
                       ),
                     ),
-                    onTap: () {
-                      final provider = Provider.of<LocalizationProvider>(context, listen: false);
-                      provider.setLocale(locale);
-                    },
-                  );
-                }).toList(),
-                onChanged: (_) {},
-              ),
+                    icon: const Icon(Icons.flag),
+                    items: AppLocalizations.supportedLocales.map((Locale locale) {
+                      final flag = Localization.getFlag(locale.languageCode);
+                      return DropdownMenuItem(
+                        value: locale,
+                        child: Center(
+                          child: Text(
+                            flag,
+                            style: GoogleFonts.inter(),
+                          ),
+                        ),
+                        onTap: () {
+                          final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                          provider.setLocale(locale);
+                        },
+                      );
+                    }).toList(),
+                    onChanged: (_) {},
+                  ),
+                ),
+                // ListTile(
+                //   title: Text(
+                //     // 'Bahasa',
+                //     AppLocalizations.of(context)!.textLanguage,
+                //     style: GoogleFonts.inter(
+                //       fontSize: 16.sp,
+                //     ),
+                //   ),
+                //   // trailing: Switch.adaptive(
+                //   //   activeColor: AppColor.primary,
+                //   //   value: isChange,
+                //   //   onChanged: (value) async {
+                //   //     isChange = value;
+                //   //     if (isChange) {
+                //   //       final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                //   //       provider.setLocale(const Locale("en"));
+                //   //     } else {
+                //   //       final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                //   //       provider.setLocale(const Locale("id"));
+                //   //     }
+                //   //   },
+                //   // ),
+                //   // trailing: ChangeNotifierProvider<LocalizationProvider>(
+                //   trailing: Builder(
+                //     // create: (context) => LocalizationProvider(),
+                //     builder: (context) {
+                //       final providerLocale = Provider.of<LocalizationProvider>(context, listen: false);
+                //       debugPrint('providerLocale ${providerLocale.locale.languageCode}');
+                //       // if (providerLocale.locale.languageCode == "en") {
+                //       //   isChange = true;
+                //       // } else {
+                //       //   isChange = false;
+                //       // }
+                //       return Switch.adaptive(
+                //         activeColor: AppColor.primary,
+                //         value: isChange,
+                //         onChanged: (value) async {
+                //           isChange = value;
+                //           if (isChange) {
+                //             final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                //             provider.setLocale(const Locale("en"));
+                //           } else {
+                //             final provider = Provider.of<LocalizationProvider>(context, listen: false);
+                //             provider.setLocale(const Locale("id"));
+                //           }
+                //         },
+                //       );
+                //     },
+                //   ),
+                // ),
+              ],
             ),
-            // ListTile(
-            //   title: Text(
-            //     // 'Bahasa',
-            //     AppLocalizations.of(context)!.textLanguage,
-            //     style: GoogleFonts.inter(
-            //       fontSize: 16.sp,
-            //     ),
-            //   ),
-            //   // trailing: Switch.adaptive(
-            //   //   activeColor: AppColor.primary,
-            //   //   value: isChange,
-            //   //   onChanged: (value) async {
-            //   //     isChange = value;
-            //   //     if (isChange) {
-            //   //       final provider = Provider.of<LocalizationProvider>(context, listen: false);
-            //   //       provider.setLocale(const Locale("en"));
-            //   //     } else {
-            //   //       final provider = Provider.of<LocalizationProvider>(context, listen: false);
-            //   //       provider.setLocale(const Locale("id"));
-            //   //     }
-            //   //   },
-            //   // ),
-            //   // trailing: ChangeNotifierProvider<LocalizationProvider>(
-            //   trailing: Builder(
-            //     // create: (context) => LocalizationProvider(),
-            //     builder: (context) {
-            //       final providerLocale = Provider.of<LocalizationProvider>(context, listen: false);
-            //       debugPrint('providerLocale ${providerLocale.locale.languageCode}');
-            //       // if (providerLocale.locale.languageCode == "en") {
-            //       //   isChange = true;
-            //       // } else {
-            //       //   isChange = false;
-            //       // }
-            //       return Switch.adaptive(
-            //         activeColor: AppColor.primary,
-            //         value: isChange,
-            //         onChanged: (value) async {
-            //           isChange = value;
-            //           if (isChange) {
-            //             final provider = Provider.of<LocalizationProvider>(context, listen: false);
-            //             provider.setLocale(const Locale("en"));
-            //           } else {
-            //             final provider = Provider.of<LocalizationProvider>(context, listen: false);
-            //             provider.setLocale(const Locale("id"));
-            //           }
-            //         },
-            //       );
-            //     },
-            //   ),
-            // ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
