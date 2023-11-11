@@ -8,6 +8,5 @@ class InitConfig {
     AppInfo.appInfoInit();
     AppConnectivityService.init();
     EnvironmentConfig.customBaseUrl = "https://story-api.dicoding.dev/v1";
-    await AppLocationService.permissionHandlerLocation();
   }
 }

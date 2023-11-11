@@ -4,6 +4,7 @@ import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_b
 import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
+import 'package:fam_flutter_storyapp/support/app_location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -89,6 +90,12 @@ class _MainPageState extends State<MainPage> {
     scrollController
       ..removeListener(onScrollV1)
       ..dispose();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    await AppLocationService.permissionHandlerLocation();
   }
 
   @override
