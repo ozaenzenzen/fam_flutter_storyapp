@@ -12,7 +12,6 @@ import 'package:fam_flutter_storyapp/support/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'presentation/page/detail_story_page/get_detail_story_bloc/get_detail_story_bloc.dart';
 // ignore: depend_on_referenced_packages

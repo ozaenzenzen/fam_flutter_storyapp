@@ -1,7 +1,6 @@
 import 'package:fam_flutter_storyapp/data/model/response/get_all_story_response_model.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
-import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:fam_flutter_storyapp/support/app_location_service.dart';
