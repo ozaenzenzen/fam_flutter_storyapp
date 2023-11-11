@@ -1,16 +1,26 @@
-class Y extends StatefulWidget {
+import 'dart:async';
+
+import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:screenshot/screenshot.dart';
+
+class MapsPage extends StatefulWidget {
   final Function(LatLng latLng, Placemark placemarkMap, String alamat, Uint8List? screenshotMap)? actionCallback;
 
-  const Y({
+  const MapsPage({
     super.key,
     this.actionCallback,
   });
 
   @override
-  State<Y> createState() => YState();
+  State<MapsPage> createState() => MapsPageState();
 }
 
-class YState extends State<Y> {
+class MapsPageState extends State<MapsPage> {
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -34,7 +44,7 @@ class YState extends State<Y> {
   @override
   void initState() {
     super.initState();
-    print('SCREEN MAPS');
+    debugPrint('SCREEN MAPS');
     _getCurrentLocation();
   }
 
@@ -80,7 +90,7 @@ class YState extends State<Y> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               child: const Text('OK'),
             ),
@@ -90,101 +100,103 @@ class YState extends State<Y> {
     );
   }
 
-  _actionAfterPutMarker(Placemark placemark, LatLng latLng) {
-    BottomSheetUtils().showBottomSheetV2(
-      title: 'Atur Pin Lokasi',
-      context: context,
-      withStrip: true,
-      radius: 20.h,
-      content: StatefulBuilder(
-        builder: (BuildContext context, Function setState) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              SizedBox(height: 8.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: 20.h,
-                    color: AppTheme.colors.neutral500,
-                  ),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          '${placemark.name}',
-                          style: GoogleFonts.mukta(
-                            color: const Color(0xff121419),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                        Text(
-                          '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}',
-                          style: GoogleFonts.mukta(
-                            color: const Color(0xff121419),
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                        // Text(
-                        //   '${placemark.toJson()}',
-                        //   style: GoogleFonts.mukta(
-                        //     color: const Color(0xff121419),
-                        //     fontWeight: FontWeight.w400,
-                        //     fontSize: 14.sp,
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              InkWell(
-                onTap: () async {
-                  // Uint8List? dataScreenshot = await takeMapScreenshot();
-                  Uint8List? dataScreenshot = await _takeMapScreenshotV2();
-                  if (dataScreenshot != null) {
-                    String alamat =
-                        '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}';
-                    widget.actionCallback?.call(latLng, placemark, alamat, dataScreenshot);
-                    Get.back();
-                    Get.back();
-                  } else {
-                    //
-                  }
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 48.h,
-                  decoration: BoxDecoration(
-                    color: AppTheme.colors.primaryColor,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Text(
-                    'Pilih Alamat',
-                    style: GoogleFonts.mukta(
-                      color: AppTheme.colors.neutral500,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.h),
-            ],
-          );
-        },
-      ),
-    );
-  }
+  // _actionAfterPutMarker(Placemark placemark, LatLng latLng) {
+  //   BottomSheetUtils().showBottomSheetV2(
+  //     title: 'Atur Pin Lokasi',
+  //     context: context,
+  //     withStrip: true,
+  //     radius: 20.h,
+  //     content: StatefulBuilder(
+  //       builder: (BuildContext context, Function setState) {
+  //         return Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: <Widget>[
+  //             SizedBox(height: 8.h),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.start,
+  //               children: <Widget>[
+  //                 Icon(
+  //                   Icons.location_on,
+  //                   size: 20.h,
+  //                   color: AppColor.disabled,
+  //                 ),
+  //                 SizedBox(width: 8.w),
+  //                 Expanded(
+  //                   child: Column(
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: <Widget>[
+  //                       Text(
+  //                         '${placemark.name}',
+  //                         style: GoogleFonts.mukta(
+  //                           color: const Color(0xff121419),
+  //                           fontWeight: FontWeight.w600,
+  //                           fontSize: 16.sp,
+  //                         ),
+  //                       ),
+  //                       Text(
+  //                         '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}',
+  //                         style: GoogleFonts.mukta(
+  //                           color: const Color(0xff121419),
+  //                           fontWeight: FontWeight.w400,
+  //                           fontSize: 14.sp,
+  //                         ),
+  //                       ),
+  //                       // Text(
+  //                       //   '${placemark.toJson()}',
+  //                       //   style: GoogleFonts.mukta(
+  //                       //     color: const Color(0xff121419),
+  //                       //     fontWeight: FontWeight.w400,
+  //                       //     fontSize: 14.sp,
+  //                       //   ),
+  //                       // ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             SizedBox(height: 16.h),
+  //             InkWell(
+  //               onTap: () async {
+  //                 // Uint8List? dataScreenshot = await takeMapScreenshot();
+  //                 Uint8List? dataScreenshot = await _takeMapScreenshotV2();
+  //                 if (dataScreenshot != null) {
+  //                   String alamat =
+  //                       '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}';
+  //                   widget.actionCallback?.call(latLng, placemark, alamat, dataScreenshot);
+  //                   // ignore: use_build_context_synchronously
+  //                   Navigator.pop(context);
+  //                   // ignore: use_build_context_synchronously
+  //                   Navigator.pop(context);
+  //                 } else {
+  //                   //
+  //                 }
+  //               },
+  //               child: Container(
+  //                 alignment: Alignment.center,
+  //                 height: 48.h,
+  //                 decoration: BoxDecoration(
+  //                   color: AppColor.primary,
+  //                   borderRadius: BorderRadius.circular(5),
+  //                 ),
+  //                 child: Text(
+  //                   'Pilih Alamat',
+  //                   style: GoogleFonts.mukta(
+  //                     color: AppColor.disabled,
+  //                     fontWeight: FontWeight.w600,
+  //                     fontSize: 16.sp,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //             SizedBox(height: 16.h),
+  //           ],
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 
   Future<void> _getAddressFromCoordinates(LatLng latLng) async {
     try {
@@ -205,13 +217,13 @@ class YState extends State<Y> {
         // showAddressDialog(address);
         // Uint8List? dataScreenshot = await _takeMapScreenshot();
 
-        _actionAfterPutMarker(placemark, latLng);
+        // _actionAfterPutMarker(placemark, latLng);
         debugPrint('${placemark.toJson()}');
         // Uint8List? dataScreenshot = await _takeMapScreenshotV2();
         // widget.actionCallback?.call(placemark, address, dataScreenshot);
       }
     } catch (e) {
-      print('Error: $e');
+      debugPrint('Error: $e');
     }
   }
 
@@ -221,7 +233,7 @@ class YState extends State<Y> {
       if (dataScreenshot != null) {
         return dataScreenshot;
       } else {
-        print('Error taking the screenshot');
+        debugPrint('Error taking the screenshot');
         return null;
       }
     } catch (e) {
@@ -229,31 +241,28 @@ class YState extends State<Y> {
     }
   }
 
-  DialogsUtils _dialogUtils = DialogsUtils();
+  // DialogsUtils _dialogUtils = DialogsUtils();
 
-  Future<Uint8List?> _takeMapScreenshotV2() async {
-    _dialogUtils.showLoading();
-    try {
-      Uint8List? imageBytes;
-      GoogleMapController controller = await _controller.future;
-      // await Future<void>.delayed(const Duration(milliseconds: 500));
-      // Future<void>.delayed(const Duration(milliseconds: 1000), () async {
-      // });
-      imageBytes = await controller.takeSnapshot();
-      _dialogUtils.hideLoading();
-      return imageBytes;
-    } catch (e) {
-      _dialogUtils.hideLoading();
-      return null;
-    }
-  }
+  // Future<Uint8List?> _takeMapScreenshotV2() async {
+  //   _dialogUtils.showLoading();
+  //   try {
+  //     Uint8List? imageBytes;
+  //     GoogleMapController controller = await _controller.future;
+  //     imageBytes = await controller.takeSnapshot();
+  //     _dialogUtils.hideLoading();
+  //     return imageBytes;
+  //   } catch (e) {
+  //     _dialogUtils.hideLoading();
+  //     return null;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Screenshot(
       controller: _screenshotController,
       child: Scaffold(
-        appBar: const AppBarWidgetV2(
+        appBar: const AppAppBarWidget(
           title: 'Maps',
         ),
         body: GoogleMap(
@@ -305,7 +314,7 @@ class YState extends State<Y> {
         );
       });
     } catch (e) {
-      print('Error updating current location: $e');
+      debugPrint('Error updating current location: $e');
     }
   }
 }
