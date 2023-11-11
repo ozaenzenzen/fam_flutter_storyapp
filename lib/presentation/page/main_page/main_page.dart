@@ -141,7 +141,7 @@ class _MainPageState extends State<MainPage> {
                 child: BlocConsumer<GetAllStoryBloc, GetAllStoryState>(
                   listener: (context, state) async {
                     if (state is GetAllStorySuccess) {
-                      if (getAllStoryBloc.actionGetAllStoryType == ActionGetAllStoryType.infiniteScroll) {
+                      if (state.actionGetAllStoryType == ActionGetAllStoryType.infiniteScroll) {
                         await Future.delayed(const Duration(milliseconds: 10)).then((value) {
                           scrollController.jumpTo(scrollController.position.maxScrollExtent * 0.87);
                         });
@@ -149,7 +149,7 @@ class _MainPageState extends State<MainPage> {
                     }
                   },
                   builder: (context, state) {
-                    if (state is GetAllStoryLoading && getAllStoryBloc.actionGetAllStoryType == ActionGetAllStoryType.refresh) {
+                    if (state is GetAllStoryLoading && state.actionGetAllStoryType == ActionGetAllStoryType.refresh) {
                       return loadingState();
                     }
                     List<ListStory> listStoryViewHandler = [];
