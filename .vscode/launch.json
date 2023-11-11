@@ -5,21 +5,45 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "fam_flutter_storyapp",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "fam_flutter_storyapp (profile mode)",
+            "name": "story app staging",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            // "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "staging",
+                "--target",
+                "lib/main_staging.dart",
+                // "lib/main_example.dart",
+                // "--no-sound-null-safety",
+            ],
         },
         {
-            "name": "fam_flutter_storyapp (release mode)",
+            "name": "story app prod",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
-        }
+            // "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "production",
+                "--target",
+                "lib/main_production.dart",
+                // "--no-sound-null-safety",
+            ]
+        },
+        {
+            "name": "story app dev",
+            "request": "launch",
+            "type": "dart",
+            // "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "development",
+                "--target",
+                // "lib/main_example.dart",
+                "lib/main_development.dart",
+                // "--no-sound-null-safety",
+            ]
+        },
     ]
 }
