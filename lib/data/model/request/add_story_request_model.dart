@@ -3,14 +3,14 @@ import 'dart:io';
 class AddStoryRequestModel {
   String description;
   File photo;
-  double lat;
-  double lon;
+  double? lat;
+  double? lon;
 
   AddStoryRequestModel({
     required this.description,
     required this.photo,
-    required this.lat,
-    required this.lon,
+    this.lat,
+    this.lon,
   });
 
   factory AddStoryRequestModel.fromJson(Map<String, dynamic> json) => AddStoryRequestModel(

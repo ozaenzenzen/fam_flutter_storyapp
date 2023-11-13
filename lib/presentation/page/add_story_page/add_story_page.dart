@@ -16,20 +16,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddStoryPage extends StatefulWidget {
+  final String? callbackGetAlamat;
+  final LatLng? callbackGetLatLong;
   final Function()? onBack;
   final Function(BuildContext context)? actionCallback;
-  final Function()? routeToMapsPage;
+  final Function()? onMapsOpen;
 
   const AddStoryPage({
     super.key,
+    this.callbackGetAlamat,
+    this.callbackGetLatLong,
     this.onBack,
     this.actionCallback,
-    this.routeToMapsPage,
+    this.onMapsOpen,
   });
 
   @override
@@ -80,23 +85,37 @@ class _AddStoryPageState extends State<AddStoryPage> {
                       ),
                     ),
                     SizedBox(height: 5.h),
-                    AppSecondaryButtonWidget(
-                      onPressed: () {
-                        if (EnvironmentConfig.flavor != Flavor.production) {
-                          AppDialogAction.showFailedPopup(
-                            context: context,
-                            title: AppLocalizations.of(context)!.textTitlePopupFailed,
-                            description: AppLocalizations.of(context)!.descBuildVariantWarning,
-                            buttonTitle: AppLocalizations.of(context)!.btnBack,
-                          );
-                        } else {
-                          widget.routeToMapsPage?.call();
-                        }
-                      },
-                      text: 'Choose your location',
-                      color: EnvironmentConfig.flavor == Flavor.production ? null : AppColor.disabled,
-                      borderColor: EnvironmentConfig.flavor == Flavor.production ? null : AppColor.disabled,
-                      textColor: EnvironmentConfig.flavor == Flavor.production ? null : Colors.white,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (widget.callbackGetAlamat != null) ...[
+                          Text(
+                            '${widget.callbackGetAlamat}',
+                            style: GoogleFonts.inter(
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                        ],
+                        AppSecondaryButtonWidget(
+                          onPressed: () {
+                            if (EnvironmentConfig.flavor != Flavor.production) {
+                              AppDialogAction.showFailedPopup(
+                                context: context,
+                                title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                                description: AppLocalizations.of(context)!.descBuildVariantWarning,
+                                buttonTitle: AppLocalizations.of(context)!.btnBack,
+                              );
+                            } else {
+                              widget.onMapsOpen?.call();
+                            }
+                          },
+                          text: 'Choose your location',
+                          color: EnvironmentConfig.flavor == Flavor.production ? null : AppColor.disabled,
+                          borderColor: EnvironmentConfig.flavor == Flavor.production ? null : AppColor.disabled,
+                          textColor: EnvironmentConfig.flavor == Flavor.production ? null : Colors.white,
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20.h),
                     InkWell(
@@ -202,8 +221,10 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                         description: descriptionTextFieldController.text,
                                         // photo: MultipartFile.fromBytes(imageChosen!.path.codeUnits),
                                         photo: imageChosen!,
-                                        lat: -6.3343434,
-                                        lon: -6.3343434,
+                                        // lat: -6.3343434,
+                                        // lon: -6.3343434,
+                                        lat: widget.callbackGetLatLong?.latitude,
+                                        lon: widget.callbackGetLatLong?.longitude,
                                       ),
                                     ),
                                   );
@@ -232,8 +253,10 @@ class _AddStoryPageState extends State<AddStoryPage> {
                                         description: descriptionTextFieldController.text,
                                         // photo: MultipartFile.fromBytes(imageChosen!.path.codeUnits),
                                         photo: imageChosen!,
-                                        lat: -6.3343434,
-                                        lon: -6.3343434,
+                                        // lat: -6.3343434,
+                                        // lon: -6.3343434,
+                                        lat: widget.callbackGetLatLong!.latitude,
+                                        lon: widget.callbackGetLatLong!.longitude,
                                       ),
                                     ),
                                   );

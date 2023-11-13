@@ -37,12 +37,15 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
     await Future.delayed(const Duration(seconds: 2));
     // }
     try {
+      if (event.actionGetAllStoryType == ActionGetAllStoryType.refresh) {
+        pageItems = 0;
+      }
       UserDataModel? userDataModel = await LocalRepository.getUserData();
       if (userDataModel != null) {
         GetAllStoryResponseModel? getAllStoryResponseModel = await StoriesRepository().getAllStory(
           token: userDataModel.token!,
-          page: pageItems.toString(),
-          size: sizeItems.toString(),
+          page: (event.actionGetAllStoryType == ActionGetAllStoryType.refresh) ? null : pageItems.toString(),
+          size: (event.actionGetAllStoryType == ActionGetAllStoryType.refresh) ? null : sizeItems.toString(),
           // page: event.page,
           // size: event.size,
           location: event.location,
@@ -52,7 +55,7 @@ class GetAllStoryBloc extends Bloc<GetAllStoryEvent, GetAllStoryState> {
             actionGetAllStoryType = event.actionGetAllStoryType;
             if (event.actionGetAllStoryType == ActionGetAllStoryType.refresh) {
               listStoryHolder.clear();
-              pageItems = 1;
+              // pageItems = 1;
             }
             listStoryHolder.addAll(getAllStoryResponseModel.listStory!);
 

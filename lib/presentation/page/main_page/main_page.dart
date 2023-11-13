@@ -13,7 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   final Function(String)? onTapToDetail;
-  final Function()? onAddStory;
+  final Function(BuildContext context)? onAddStory;
   final Function()? onSettings;
   final Function()? onLogout;
 
@@ -85,6 +85,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
+    debugPrint('cek dispiose');
     super.dispose();
     scrollController
       ..removeListener(onScrollV1)
@@ -312,63 +313,67 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget floatingActionButtonWidget() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        FloatingActionButton.extended(
-          label: Row(
-            children: [
-              Text(
-                // "Add Story",
-                AppLocalizations.of(context)!.textAddStory,
-                style: GoogleFonts.inter(
-                  fontSize: 14.sp,
-                  color: Colors.white,
-                ),
+    return BlocBuilder<GetAllStoryBloc, GetAllStoryState>(
+      builder: (contextFromBloc, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingActionButton.extended(
+              label: Row(
+                children: [
+                  Text(
+                    // "Add Story",
+                    AppLocalizations.of(context)!.textAddStory,
+                    style: GoogleFonts.inter(
+                      fontSize: 14.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 15.w),
+                  const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ],
               ),
-              SizedBox(width: 15.w),
-              const Icon(
-                Icons.add,
-                color: Colors.white,
+              heroTag: "btn1",
+              backgroundColor: AppColor.primary,
+              onPressed: () {
+                widget.onAddStory?.call(contextFromBloc);
+              },
+              tooltip: 'Increment',
+            ),
+            SizedBox(height: 20.h),
+            FloatingActionButton.extended(
+              label: Row(
+                children: [
+                  Text(
+                    // "Logout",
+                    AppLocalizations.of(context)!.textLogout,
+                    style: GoogleFonts.inter(
+                      fontSize: 14.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 15.w),
+                  const Icon(
+                    Icons.exit_to_app,
+                    color: Colors.white,
+                  ),
+                ],
               ),
-            ],
-          ),
-          heroTag: "btn1",
-          backgroundColor: AppColor.primary,
-          onPressed: () {
-            widget.onAddStory?.call();
-          },
-          tooltip: 'Increment',
-        ),
-        SizedBox(height: 20.h),
-        FloatingActionButton.extended(
-          label: Row(
-            children: [
-              Text(
-                // "Logout",
-                AppLocalizations.of(context)!.textLogout,
-                style: GoogleFonts.inter(
-                  fontSize: 14.sp,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(width: 15.w),
-              const Icon(
-                Icons.exit_to_app,
-                color: Colors.white,
-              ),
-            ],
-          ),
-          heroTag: "btn2",
-          backgroundColor: AppColor.primary,
-          onPressed: () {
-            context.read<LogoutBloc>().add(ActionLogout());
-          },
-          tooltip: 'Logout',
-        ),
-        SizedBox(height: 20.h),
-      ],
+              heroTag: "btn2",
+              backgroundColor: AppColor.primary,
+              onPressed: () {
+                context.read<LogoutBloc>().add(ActionLogout());
+              },
+              tooltip: 'Logout',
+            ),
+            SizedBox(height: 20.h),
+          ],
+        );
+      },
     );
   }
 }

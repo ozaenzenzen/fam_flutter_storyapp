@@ -17,16 +17,25 @@ class StoriesRepository {
       ).call(
         AppApiPath.stories,
         // request: data.toJson(),
-        request: {
-          'description': data.description,
-          'photo': await MultipartFile.fromFile(
-            data.photo.path,
-            filename: data.photo.path.split('/').last,
-            contentType: MediaType("image", "jpeg"),
-          ),
-          'lat': data.lat,
-          'lon': data.lon,
-        },
+        request: (data.lat == null || data.lon == null)
+            ? {
+                'description': data.description,
+                'photo': await MultipartFile.fromFile(
+                  data.photo.path,
+                  filename: data.photo.path.split('/').last,
+                  contentType: MediaType("image", "jpeg"),
+                ),
+              }
+            : {
+                'description': data.description,
+                'photo': await MultipartFile.fromFile(
+                  data.photo.path,
+                  filename: data.photo.path.split('/').last,
+                  contentType: MediaType("image", "jpeg"),
+                ),
+                'lat': data.lat,
+                'lon': data.lon,
+              },
         method: MethodRequest.post,
         header: {
           // 'Authorization' : 'Bearer $token',
@@ -61,15 +70,15 @@ class StoriesRepository {
 
   Future<GetAllStoryResponseModel?> getAllStory({
     required String token,
-    String page = "1",
-    String size = "10",
-    String location = "1",
+    String? page,
+    String? size,
+    String? location,
   }) async {
     try {
       final response = await AppApiService(
         EnvironmentConfig.baseUrl(),
       ).call(
-        "${AppApiPath.stories}?page=$page&size=$size&location=$location",
+        (page == null || size == null || location == null) ? AppApiPath.stories : "${AppApiPath.stories}?page=$page&size=$size&location=$location",
         token: token,
         method: MethodRequest.get,
       );

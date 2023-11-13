@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/handler/page_configuration.dart';
 import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_page.dart';
@@ -7,10 +9,13 @@ import 'package:fam_flutter_storyapp/presentation/page/detail_story_page/detail_
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/main_page.dart';
+import 'package:fam_flutter_storyapp/presentation/page/maps_page/maps_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   final GlobalKey<NavigatorState> _navigatorKey;
@@ -28,8 +33,14 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
   bool? isRegister = false;
   bool? isAddStory = false;
   bool? isSettings = false;
+  bool? isMapsOpen = false;
 
   String? idStory;
+
+  LatLng? latLng;
+  Placemark? placemarkMap;
+  String? alamat;
+  Uint8List? screenshotMap;
 
   bool? isLoggedIn;
 
@@ -83,6 +94,7 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
         isRegister = false;
         isAddStory = false;
         isSettings = false;
+        isMapsOpen = false;
         idStory = null;
         notifyListeners();
 
@@ -179,12 +191,16 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
           ),
       ];
 
+  BuildContext? savedGetAllStoryBlocContext;
+
   List<Page> get _loginStack => [
         MaterialPage(
           key: const ValueKey("MainPage"),
           child: MainPage(
-            onAddStory: () {
+            onAddStory: (BuildContext contextFromBloc) {
               isAddStory = true;
+              alamat = null;
+              savedGetAllStoryBlocContext = contextFromBloc;
               notifyListeners();
             },
             onTapToDetail: (String idStorycallback) {
@@ -205,18 +221,37 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
           MaterialPage(
             key: const ValueKey("AddStoryPage"),
             child: AddStoryPage(
+              callbackGetAlamat: alamat,
+              callbackGetLatLong: latLng,
               onBack: () {
                 isAddStory = false;
+                alamat = null;
                 notifyListeners();
               },
               actionCallback: (BuildContext context) {
                 isAddStory = false;
                 // BlocProvider.of<GetAllStoryBloc>(context, listen: false).add(ActionGetAllStory());
-                BlocProvider<GetAllStoryBloc>(
-                  create: (context) {
-                    return GetAllStoryBloc()..add(ActionGetAllStory());
-                  },
-                );
+                BlocProvider.of<GetAllStoryBloc>(savedGetAllStoryBlocContext!, listen: false).add(ActionGetAllStory());
+                notifyListeners();
+              },
+              onMapsOpen: () {
+                isMapsOpen = true;
+                notifyListeners();
+              },
+            ),
+          ),
+        if (isMapsOpen == true)
+          MaterialPage(
+            key: const ValueKey("MapsPage"),
+            child: MapsPage(
+              onBack: () {
+                isMapsOpen = false;
+                notifyListeners();
+              },
+              actionCallback: (latLngs, placemarkMap, alamats, screenshotMap) {
+                alamat = alamats;
+                latLng = latLngs;
+                isMapsOpen = false;
                 notifyListeners();
               },
             ),
