@@ -70,25 +70,35 @@ android {
     }
 
     buildTypes {
-        release {
-            signingConfig signingConfigs.release
+        debug {
+            debuggable true
+            shrinkResources false
+            minifyEnabled false
+            zipAlignEnabled true
         }
-        applicationVariants.all { variant ->
-            variant.outputs.all { output ->
-                def productFlavorsName = productFlavors.name.toString()
-                def oldApkFlavorsName = productFlavorsName.replace("[", "").trim()
-                def newApkFlavorsName = oldApkFlavorsName.replace("]", "").trim()
-                // println("newApkFlavorsName=" + newApkFlavorsName)
-                def project = "StoryApp-"
-                def SEP = "_"
-                def buildType = variant.buildType.name
-                def version = variant.versionName
-                def date = new Date()
-                def formattedDateWOHour = date.format('dd-MM-yy_HH-mm')
-                def formattedDateWHour = date.format('dd-MM-yy')
+        release {
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def productFlavorsName = productFlavors.name.toString()
+                    def oldApkFlavorsName = productFlavorsName.replace("[", "").trim()
+                    def newApkFlavorsName = oldApkFlavorsName.replace("]", "").trim()
+                    // println("newApkFlavorsName=" + newApkFlavorsName)
+                    def project = "StoryApp-"
+                    def SEP = "_"
+                    def buildType = variant.buildType.name
+                    def version = variant.versionName
+                    def date = new Date()
+                    def formattedDateWOHour = date.format('dd-MM-yy_HH-mm')
+                    def formattedDateWHour = date.format('dd-MM-yy')
 
-                def newApkName = project + version + SEP + newApkFlavorsName + SEP + formattedDateWHour + ".apk"
-                outputFileName = new File(newApkName)
+                    def newApkName = project + version + SEP + newApkFlavorsName + SEP + formattedDateWHour + ".apk"
+                    outputFileName = new File(newApkName)
+                }
             }
         }
     }
