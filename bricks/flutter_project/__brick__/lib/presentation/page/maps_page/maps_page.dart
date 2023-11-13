@@ -2,17 +2,28 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
+import 'package:fam_flutter_storyapp/support/app_bottomsheet_action.dart';
+import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
 class {{mapsPageName.pascalCase()}} extends StatefulWidget {
-  final Function(LatLng latLng, Placemark placemarkMap, String alamat, Uint8List? screenshotMap)? actionCallback;
+  final Function()? onBack;
+  final Function(
+    LatLng latLng,
+    Placemark placemarkMap,
+    String alamat,
+    Uint8List? screenshotMap,
+  )? actionCallback;
 
   const {{mapsPageName.pascalCase()}}({
     super.key,
+    this.onBack,
     this.actionCallback,
   });
 
