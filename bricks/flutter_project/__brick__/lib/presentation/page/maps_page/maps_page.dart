@@ -35,7 +35,7 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
     zoom: 19.151926040649414,
   );
 
-  Set<Marker> _markers = <Marker>{};
+  Set<Marker> markers = <Marker>{};
 
   late LatLng _currentLocation;
 
@@ -75,8 +75,8 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
     );
 
     setState(() {
-      _markers.clear();
-      _markers.add(newMarker);
+      markers.clear();
+      markers.add(newMarker);
     });
   }
 
@@ -100,101 +100,102 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
   //   );
   // }
 
-  // _actionAfterPutMarker(Placemark placemark, LatLng latLng) {
-  //   BottomSheetUtils().showBottomSheetV2(
-  //     title: 'Atur Pin Lokasi',
-  //     context: context,
-  //     withStrip: true,
-  //     radius: 20.h,
-  //     content: StatefulBuilder(
-  //       builder: (BuildContext context, Function setState) {
-  //         return Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: <Widget>[
-  //             SizedBox(height: 8.h),
-  //             Row(
-  //               mainAxisAlignment: MainAxisAlignment.start,
-  //               children: <Widget>[
-  //                 Icon(
-  //                   Icons.location_on,
-  //                   size: 20.h,
-  //                   color: AppTheme.colors.neutral500,
-  //                 ),
-  //                 SizedBox(width: 8.w),
-  //                 Expanded(
-  //                   child: Column(
-  //                     mainAxisSize: MainAxisSize.min,
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: <Widget>[
-  //                       Text(
-  //                         '${placemark.name}',
-  //                         style: GoogleFonts.mukta(
-  //                           color: const Color(0xff121419),
-  //                           fontWeight: FontWeight.w600,
-  //                           fontSize: 16.sp,
-  //                         ),
-  //                       ),
-  //                       Text(
-  //                         '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}',
-  //                         style: GoogleFonts.mukta(
-  //                           color: const Color(0xff121419),
-  //                           fontWeight: FontWeight.w400,
-  //                           fontSize: 14.sp,
-  //                         ),
-  //                       ),
-  //                       // Text(
-  //                       //   '${placemark.toJson()}',
-  //                       //   style: GoogleFonts.mukta(
-  //                       //     color: const Color(0xff121419),
-  //                       //     fontWeight: FontWeight.w400,
-  //                       //     fontSize: 14.sp,
-  //                       //   ),
-  //                       // ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             SizedBox(height: 16.h),
-  //             InkWell(
-  //               onTap: () async {
-  //                 // Uint8List? dataScreenshot = await takeMapScreenshot();
-  //                 Uint8List? dataScreenshot = await _takeMapScreenshotV2();
-  //                 if (dataScreenshot != null) {
-  //                   String alamat =
-  //                       '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}';
-  //                   widget.actionCallback?.call(latLng, placemark, alamat, dataScreenshot);
-  //                   Get.back();
-  //                   Get.back();
-  //                 } else {
-  //                   //
-  //                 }
-  //               },
-  //               child: Container(
-  //                 alignment: Alignment.center,
-  //                 height: 48.h,
-  //                 decoration: BoxDecoration(
-  //                   color: AppTheme.colors.primaryColor,
-  //                   borderRadius: BorderRadius.circular(5),
-  //                 ),
-  //                 child: Text(
-  //                   'Pilih Alamat',
-  //                   style: GoogleFonts.mukta(
-  //                     color: AppTheme.colors.neutral500,
-  //                     fontWeight: FontWeight.w600,
-  //                     fontSize: 16.sp,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //             SizedBox(height: 16.h),
-  //           ],
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
+  _actionAfterPutMarker(Placemark placemark, LatLng latLng) {
+    AppBottomSheetAction().showBottomSheetV2(
+      title: 'Atur Pin Lokasi',
+      context: context,
+      withStrip: true,
+      radius: 20.h,
+      content: StatefulBuilder(
+        builder: (BuildContext context, Function setState) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(height: 8.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Icon(
+                    Icons.location_on,
+                    size: 20.h,
+                    color: AppColor.primary,
+                  ),
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '${placemark.name}',
+                          style: GoogleFonts.mukta(
+                            color: const Color(0xff121419),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        Text(
+                          '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}',
+                          style: GoogleFonts.mukta(
+                            color: const Color(0xff121419),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        // Text(
+                        //   '${placemark.toJson()}',
+                        //   style: GoogleFonts.mukta(
+                        //     color: const Color(0xff121419),
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 14.sp,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              InkWell(
+                onTap: () async {
+                  // Uint8List? dataScreenshot = await takeMapScreenshot();
+                  Uint8List? dataScreenshot = await _takeMapScreenshotV2();
+                  if (dataScreenshot != null) {
+                    String alamat =
+                        '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}';
+                    widget.actionCallback?.call(latLng, placemark, alamat, dataScreenshot);
+                    debugPrint('alamat $alamat');
+                    // Navigator.pop(context);
+                    // Navigator.pop(context);
+                  } else {
+                    //
+                  }
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 48.h,
+                  decoration: BoxDecoration(
+                    color: AppColor.primary,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    'Pilih Alamat',
+                    style: GoogleFonts.mukta(
+                      color: AppColor.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
+            ],
+          );
+        },
+      ),
+    );
+  }
 
   Future<void> _getAddressFromCoordinates(LatLng latLng) async {
     try {
@@ -215,7 +216,7 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
         // showAddressDialog(address);
         // Uint8List? dataScreenshot = await _takeMapScreenshot();
 
-        // _actionAfterPutMarker(placemark, latLng);
+        _actionAfterPutMarker(placemark, latLng);
         debugPrint('${placemark.toJson()}');
         // Uint8List? dataScreenshot = await _takeMapScreenshotV2();
         // widget.actionCallback?.call(placemark, address, dataScreenshot);
@@ -231,7 +232,7 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
       if (dataScreenshot != null) {
         return dataScreenshot;
       } else {
-        print('Error taking the screenshot');
+        debugPrint('Error taking the screenshot');
         return null;
       }
     } catch (e) {
@@ -241,51 +242,60 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
 
   // DialogsUtils _dialogUtils = DialogsUtils();
 
-  // Future<Uint8List?> _takeMapScreenshotV2() async {
-  //   _dialogUtils.showLoading();
-  //   try {
-  //     Uint8List? imageBytes;
-  //     GoogleMapController controller = await _controller.future;
-  //     // await Future<void>.delayed(const Duration(milliseconds: 500));
-  //     // Future<void>.delayed(const Duration(milliseconds: 1000), () async {
-  //     // });
-  //     imageBytes = await controller.takeSnapshot();
-  //     _dialogUtils.hideLoading();
-  //     return imageBytes;
-  //   } catch (e) {
-  //     _dialogUtils.hideLoading();
-  //     return null;
-  //   }
-  // }
+  Future<Uint8List?> _takeMapScreenshotV2() async {
+    // _dialogUtils.showLoading();
+    try {
+      Uint8List? imageBytes;
+      GoogleMapController controller = await _controller.future;
+      // await Future<void>.delayed(const Duration(milliseconds: 500));
+      // Future<void>.delayed(const Duration(milliseconds: 1000), () async {
+      // });
+      imageBytes = await controller.takeSnapshot();
+      // _dialogUtils.hideLoading();
+      return imageBytes;
+    } catch (e) {
+      // _dialogUtils.hideLoading();
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Screenshot(
-      controller: _screenshotController,
-      child: Scaffold(
-        appBar: const AppAppBarWidget(
-          title: 'Maps',
-        ),
-        body: GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-          markers: _markers,
-          onTap: (LatLng latLang) async {
-            debugPrint('latLang.latitude ${latLang.latitude}');
-            debugPrint('latLang.longitude ${latLang.longitude}');
-            _addMarker(latLang);
-            _getAddressFromCoordinates(latLang);
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          // onPressed: goToTheLake,
-          onPressed: _updateMarkerToCurrentLocation,
-          label: const Text('My Location'),
-          icon: const Icon(Icons.location_on),
+    return WillPopScope(
+      onWillPop: () async {
+        widget.onBack?.call();
+        return true;
+      },
+      child: Screenshot(
+        controller: _screenshotController,
+        child: Scaffold(
+          appBar: AppAppBarWidget(
+            title: 'Maps',
+            onBack: () {
+              widget.onBack?.call();
+            },
+          ),
+          body: GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            markers: markers,
+            onTap: (LatLng latLang) async {
+              debugPrint('latLang.latitude ${latLang.latitude}');
+              debugPrint('latLang.longitude ${latLang.longitude}');
+              _addMarker(latLang);
+              _getAddressFromCoordinates(latLang);
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          floatingActionButton: FloatingActionButton.extended(
+            // onPressed: goToTheLake,
+            onPressed: _updateMarkerToCurrentLocation,
+            label: const Text('My Location'),
+            icon: const Icon(Icons.location_on),
+          ),
         ),
       ),
     );
