@@ -315,7 +315,7 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
         );
       });
     } catch (e) {
-      print('Error updating current location: $e');
+      debugPrint('Error updating current location: $e');
     }
   }
 }
