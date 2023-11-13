@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:screenshot/screenshot.dart';
 
 class MapsPage extends StatefulWidget {
@@ -59,7 +59,7 @@ class MapsPageState extends State<MapsPage> {
         _addMarker(_currentLocation);
       });
     } catch (e) {
-      print('Error getting current location: $e');
+      debugPrint('Error getting current location: $e');
     }
   }
 
@@ -90,7 +90,7 @@ class MapsPageState extends State<MapsPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                // Navigator.pop(context);
+                Navigator.pop(context);
               },
               child: const Text('OK'),
             ),
@@ -119,7 +119,7 @@ class MapsPageState extends State<MapsPage> {
   //                 Icon(
   //                   Icons.location_on,
   //                   size: 20.h,
-  //                   color: AppColor.disabled,
+  //                   color: AppTheme.colors.neutral500,
   //                 ),
   //                 SizedBox(width: 8.w),
   //                 Expanded(
@@ -165,10 +165,8 @@ class MapsPageState extends State<MapsPage> {
   //                   String alamat =
   //                       '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}';
   //                   widget.actionCallback?.call(latLng, placemark, alamat, dataScreenshot);
-  //                   // ignore: use_build_context_synchronously
-  //                   Navigator.pop(context);
-  //                   // ignore: use_build_context_synchronously
-  //                   Navigator.pop(context);
+  //                   Get.back();
+  //                   Get.back();
   //                 } else {
   //                   //
   //                 }
@@ -177,13 +175,13 @@ class MapsPageState extends State<MapsPage> {
   //                 alignment: Alignment.center,
   //                 height: 48.h,
   //                 decoration: BoxDecoration(
-  //                   color: AppColor.primary,
+  //                   color: AppTheme.colors.primaryColor,
   //                   borderRadius: BorderRadius.circular(5),
   //                 ),
   //                 child: Text(
   //                   'Pilih Alamat',
   //                   style: GoogleFonts.mukta(
-  //                     color: AppColor.disabled,
+  //                     color: AppTheme.colors.neutral500,
   //                     fontWeight: FontWeight.w600,
   //                     fontSize: 16.sp,
   //                   ),
@@ -233,7 +231,7 @@ class MapsPageState extends State<MapsPage> {
       if (dataScreenshot != null) {
         return dataScreenshot;
       } else {
-        debugPrint('Error taking the screenshot');
+        print('Error taking the screenshot');
         return null;
       }
     } catch (e) {
@@ -248,6 +246,9 @@ class MapsPageState extends State<MapsPage> {
   //   try {
   //     Uint8List? imageBytes;
   //     GoogleMapController controller = await _controller.future;
+  //     // await Future<void>.delayed(const Duration(milliseconds: 500));
+  //     // Future<void>.delayed(const Duration(milliseconds: 1000), () async {
+  //     // });
   //     imageBytes = await controller.takeSnapshot();
   //     _dialogUtils.hideLoading();
   //     return imageBytes;
@@ -314,7 +315,7 @@ class MapsPageState extends State<MapsPage> {
         );
       });
     } catch (e) {
-      debugPrint('Error updating current location: $e');
+      print('Error updating current location: $e');
     }
   }
 }

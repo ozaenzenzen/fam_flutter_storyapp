@@ -31,6 +31,11 @@ vars:
     description: Your maps page name
     default: MapsPage
     prompt: What is your maps page name?
+  appBarWidgetName:
+    type: string
+    description: Your appbar widget name
+    default: AppAppBarWidget
+    prompt: What is your appbar widget name?
   isStateless:
     type: boolean
     description: Make your HomeScreen is Stateless
