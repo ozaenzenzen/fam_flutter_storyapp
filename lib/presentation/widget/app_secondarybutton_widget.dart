@@ -25,8 +25,8 @@ class AppSecondaryButtonWidget extends StatefulWidget {
     this.borderColor,
     this.radius = 8,
     this.elevation = 0,
-  })  : textColor = null,
-        super(key: key);
+    this.textColor,
+  }) : super(key: key);
 
   const AppSecondaryButtonWidget.error({
     Key? key,
