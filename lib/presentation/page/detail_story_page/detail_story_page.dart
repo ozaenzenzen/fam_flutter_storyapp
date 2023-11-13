@@ -33,7 +33,7 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
     super.initState();
   }
 
-  Set<Marker> _markers = <Marker>{};
+  Set<Marker> markers = <Marker>{};
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
               state.getDetailStoryResponseModel.story!.lat!,
               state.getDetailStoryResponseModel.story!.lon!,
             ).toString());
-            _markers.add(Marker(
+            markers.add(Marker(
               markerId: markerId,
               position: LatLng(
                 state.getDetailStoryResponseModel.story!.lat!,
@@ -202,7 +202,7 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);
                     },
-                    markers: _markers,
+                    markers: markers,
                     onTap: (LatLng latLang) async {
                       debugPrint('latLang.latitude ${latLang.latitude}');
                       debugPrint('latLang.longitude ${latLang.longitude}');
