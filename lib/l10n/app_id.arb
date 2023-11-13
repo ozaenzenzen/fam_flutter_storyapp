@@ -110,5 +110,9 @@
   "textLoading": "Sedang memuat... Harap tunggu",
   "@textLoading": {
     "description": "Text Sedang memuat... Harap tunggu"
+  },
+  "descBuildVariantWarning": "Aplikasi anda belum dalam production mode",
+  "@descBuildVariantWarning": {
+    "description": "Text Aplikasi anda belum dalam production mode"
   }
 }

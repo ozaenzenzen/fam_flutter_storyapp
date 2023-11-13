@@ -26,5 +26,6 @@
   "textTitlePopupSuccess": "Success",
   "textToLoginPage": "Route to Login Page",
   "textSuccessCreateAccount": "Success create account",
-  "textLoading": "Loading... Please wait"
+  "textLoading": "Loading... Please wait",
+  "descBuildVariantWarning": "Your application is not yet in production mode"
 }
