@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:fam_flutter_storyapp/data/model/request/add_story_request_model.dart';
+import 'package:fam_flutter_storyapp/env.dart';
 import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_bloc/add_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_pick_image_bloc/add_story_pick_image_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_mainbutton_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_screen_loading_widget.dart';
+import 'package:fam_flutter_storyapp/presentation/widget/app_secondarybutton_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_textfield_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
 import 'package:fam_flutter_storyapp/support/app_dialog_action.dart';
@@ -21,11 +23,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AddStoryPage extends StatefulWidget {
   final Function()? onBack;
   final Function(BuildContext context)? actionCallback;
+  final Function()? routeToMapsPage;
 
   const AddStoryPage({
     super.key,
     this.onBack,
     this.actionCallback,
+    this.routeToMapsPage,
   });
 
   @override
@@ -67,7 +71,34 @@ class _AddStoryPageState extends State<AddStoryPage> {
               child: Container(
                 padding: EdgeInsets.all(16.h),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      "Choose your location",
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 5.h),
+                    AppSecondaryButtonWidget(
+                      onPressed: () {
+                        if (EnvironmentConfig.flavor != Flavor.production) {
+                          AppDialogAction.showFailedPopup(
+                            context: context,
+                            title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                            description: AppLocalizations.of(context)!.descBuildVariantWarning,
+                            buttonTitle: AppLocalizations.of(context)!.btnBack,
+                          );
+                        } else {
+                          widget.routeToMapsPage?.call();
+                        }
+                      },
+                      text: 'Choose your location',
+                      color: EnvironmentConfig.flavor == Flavor.production ? null : AppColor.disabled,
+                      borderColor: EnvironmentConfig.flavor == Flavor.production ? null : AppColor.disabled,
+                      textColor: EnvironmentConfig.flavor == Flavor.production ? null : Colors.white,
+                    ),
+                    SizedBox(height: 20.h),
                     InkWell(
                       onTap: () {
                         chooseImageSource();
