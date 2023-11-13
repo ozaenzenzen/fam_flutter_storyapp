@@ -80,25 +80,25 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
     });
   }
 
-  void showAddressDialog(String address) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Address'),
-          content: Text(address),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void showAddressDialog(String address) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text('Address'),
+  //         content: Text(address),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.pop(context);
+  //             },
+  //             child: const Text('OK'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   // _actionAfterPutMarker(Placemark placemark, LatLng latLng) {
   //   BottomSheetUtils().showBottomSheetV2(
