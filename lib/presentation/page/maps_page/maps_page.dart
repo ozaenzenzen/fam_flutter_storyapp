@@ -46,7 +46,7 @@ class MapsPageState extends State<MapsPage> {
     zoom: 19.151926040649414,
   );
 
-  Set<Marker> _markers = <Marker>{};
+  Set<Marker> markers = <Marker>{};
 
   late LatLng _currentLocation;
 
@@ -86,8 +86,8 @@ class MapsPageState extends State<MapsPage> {
     );
 
     setState(() {
-      _markers.clear();
-      _markers.add(newMarker);
+      markers.clear();
+      markers.add(newMarker);
     });
   }
 
@@ -292,7 +292,7 @@ class MapsPageState extends State<MapsPage> {
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
-            markers: _markers,
+            markers: markers,
             onTap: (LatLng latLang) async {
               debugPrint('latLang.latitude ${latLang.latitude}');
               debugPrint('latLang.longitude ${latLang.longitude}');
@@ -336,7 +336,7 @@ class MapsPageState extends State<MapsPage> {
         );
       });
     } catch (e) {
-      print('Error updating current location: $e');
+      debugPrint('Error updating current location: $e');
     }
   }
 }
