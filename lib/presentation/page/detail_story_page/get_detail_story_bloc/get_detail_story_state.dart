@@ -9,7 +9,12 @@ final class GetDetailStoryLoading extends GetDetailStoryState {}
 
 final class GetDetailStorySuccess extends GetDetailStoryState {
   final GetDetailStoryResponseModel getDetailStoryResponseModel;
-  GetDetailStorySuccess({required this.getDetailStoryResponseModel});
+  final Placemark? placemark;
+  
+  GetDetailStorySuccess({
+    required this.getDetailStoryResponseModel,
+    required this.placemark,
+  });
 }
 
 final class GetDetailStoryFailed extends GetDetailStoryState {

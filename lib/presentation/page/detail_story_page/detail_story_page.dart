@@ -159,7 +159,7 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
             ),
           );
         } else if (state is GetDetailStorySuccess) {
-          if (state.getDetailStoryResponseModel.story!.lat == null || state.getDetailStoryResponseModel.story!.lon == null) {
+          if (state.getDetailStoryResponseModel.story!.lat == null || state.getDetailStoryResponseModel.story!.lon == null || state.placemark == null) {
             return const SizedBox();
           } else {
             final MarkerId markerId = MarkerId(LatLng(
@@ -168,6 +168,10 @@ class _DetailStoryPageState extends State<DetailStoryPage> {
             ).toString());
             markers.add(Marker(
               markerId: markerId,
+              infoWindow: InfoWindow(
+                title: 'Detail Alamat',
+                snippet: '${state.placemark?.street}, ${state.placemark?.subLocality}, ${state.placemark?.locality}, ${state.placemark?.subAdministrativeArea}, ${state.placemark?.administrativeArea}, ${state.placemark?.country}, ${state.placemark?.postalCode}',
+              ),
               position: LatLng(
                 state.getDetailStoryResponseModel.story!.lat!,
                 state.getDetailStoryResponseModel.story!.lon!,

@@ -5,6 +5,7 @@ import 'package:fam_flutter_storyapp/data/model/response/get_detail_story_respon
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/stories_repository.dart';
 import 'package:fam_flutter_storyapp/domain/entities/user_data_model.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:meta/meta.dart';
 
 part 'get_detail_story_event.dart';
@@ -31,7 +32,21 @@ class GetDetailStoryBloc extends Bloc<GetDetailStoryEvent, GetDetailStoryState> 
         );
         if (getDetailStoryResponseModel != null) {
           if (getDetailStoryResponseModel.error == false) {
-            emit(GetDetailStorySuccess(getDetailStoryResponseModel: getDetailStoryResponseModel));
+            if (getDetailStoryResponseModel.story!.lat != null || getDetailStoryResponseModel.story!.lon != null) {
+              List<Placemark> placemarks = await placemarkFromCoordinates(
+                getDetailStoryResponseModel.story!.lat!,
+                getDetailStoryResponseModel.story!.lon!,
+              );
+              emit(GetDetailStorySuccess(
+                getDetailStoryResponseModel: getDetailStoryResponseModel,
+                placemark: placemarks.first,
+              ));
+            } else {
+              emit(GetDetailStorySuccess(
+                getDetailStoryResponseModel: getDetailStoryResponseModel,
+                placemark: null,
+              ));
+            }
           } else {
             emit(GetDetailStoryFailed(errorMessage: getDetailStoryResponseModel.message!));
           }
