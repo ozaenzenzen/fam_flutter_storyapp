@@ -3,9 +3,7 @@ import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_b
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
-import 'package:fam_flutter_storyapp/support/app_dialog_action_v2.dart';
 import 'package:fam_flutter_storyapp/support/app_location_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
