@@ -91,26 +91,6 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
     });
   }
 
-  // void showAddressDialog(String address) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Address'),
-  //         content: Text(address),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.pop(context);
-  //             },
-  //             child: const Text('OK'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
   _actionAfterPutMarker(Placemark placemark, LatLng latLng) {
     AppBottomSheetAction().showBottomSheetV2(
       title: 'Atur Pin Lokasi',
@@ -177,8 +157,6 @@ class {{mapsPageName.pascalCase()}}State extends State<{{mapsPageName.pascalCase
                         '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}, ${placemark.postalCode}';
                     widget.actionCallback?.call(latLng, placemark, alamat, dataScreenshot);
                     debugPrint('alamat $alamat');
-                    // Navigator.pop(context);
-                    // Navigator.pop(context);
                   } else {
                     //
                   }
