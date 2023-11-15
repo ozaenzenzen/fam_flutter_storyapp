@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppRouteInformationParser extends RouteInformationParser<PageConfiguration> {
   @override
   Future<PageConfiguration> parseRouteInformation(RouteInformation routeInformation) async {
+    debugPrint('this is parseRouteInformation');
     final uri = routeInformation.uri;
 
     if (uri.pathSegments.isEmpty) {
@@ -40,6 +41,7 @@ class AppRouteInformationParser extends RouteInformationParser<PageConfiguration
 
   @override
   RouteInformation? restoreRouteInformation(PageConfiguration configuration) {
+    debugPrint('this is restoreRouteInformation');
     if (configuration.isUnknownPage) {
       return RouteInformation(uri: Uri.parse('/unknown'));
     } else if (configuration.isSplashPage) {
@@ -52,6 +54,8 @@ class AppRouteInformationParser extends RouteInformationParser<PageConfiguration
       return RouteInformation(uri: Uri.parse('/'));
     } else if (configuration.isDetailPage) {
       return RouteInformation(uri: Uri.parse('/story/${configuration.idStory}'));
+    } else if (configuration.callPopup) {
+      return RouteInformation(uri: Uri.parse('callpopup'));
     } else {
       return null;
     }

@@ -40,10 +40,7 @@ class _{{appBarWidgetName.pascalCase()}}State extends State<{{appBarWidgetName.p
       automaticallyImplyLeading: widget.automaticallyImplyLeading ?? true,
       leading: widget.onBack != null
           ? InkWell(
-              onTap: widget.onBack ??
-                  () {
-                    Navigator.pop(context);
-                  },
+              onTap: widget.onBack,
               child: const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
