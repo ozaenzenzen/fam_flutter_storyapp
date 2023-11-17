@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'package:bloc/bloc.dart';
-import 'package:fam_flutter_storyapp/data/model/request/register_request_model.dart';
+import 'package:fam_flutter_storyapp/data/model/request/register_request/register_request_model.dart';
 import 'package:fam_flutter_storyapp/data/model/response/register_response_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
 // ignore: depend_on_referenced_packages

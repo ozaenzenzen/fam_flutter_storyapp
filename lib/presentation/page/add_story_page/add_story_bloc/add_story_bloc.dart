@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'package:bloc/bloc.dart';
-import 'package:fam_flutter_storyapp/data/model/request/add_story_request_model.dart';
+import 'package:fam_flutter_storyapp/data/model/request/add_story_request/add_story_request_model.dart';
 import 'package:fam_flutter_storyapp/data/model/response/add_story_response_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/stories_repository.dart';

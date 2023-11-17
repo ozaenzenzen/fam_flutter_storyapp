@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:fam_flutter_storyapp/data/model/request/add_story_request_model.dart';
+import 'package:fam_flutter_storyapp/data/model/request/add_story_request/add_story_request_model.dart';
 import 'package:fam_flutter_storyapp/env.dart';
 import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_bloc/add_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/add_story_page/add_story_pick_image_bloc/add_story_pick_image_bloc.dart';

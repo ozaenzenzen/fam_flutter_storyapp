@@ -1,4 +1,4 @@
-import 'package:fam_flutter_storyapp/data/model/request/login_request_model.dart';
+import 'package:fam_flutter_storyapp/data/model/request/login_request/login_request_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/login_bloc/login_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/login_page/show_password_login_bloc/show_password_login_bloc.dart';
