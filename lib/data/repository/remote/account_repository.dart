@@ -1,7 +1,7 @@
 import 'package:fam_flutter_storyapp/data/model/request/login_request/login_request_model.dart';
 import 'package:fam_flutter_storyapp/data/model/request/register_request/register_request_model.dart';
 import 'package:fam_flutter_storyapp/data/model/response/login_response/login_response_model.dart';
-import 'package:fam_flutter_storyapp/data/model/response/register_response_model.dart';
+import 'package:fam_flutter_storyapp/data/model/response/register_response/register_response_model.dart';
 import 'package:fam_flutter_storyapp/env.dart';
 import 'package:fam_flutter_storyapp/support/app_api_path.dart';
 import 'package:fam_flutter_storyapp/support/app_api_service.dart';
