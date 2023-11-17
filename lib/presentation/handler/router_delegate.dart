@@ -12,6 +12,7 @@ import 'package:fam_flutter_storyapp/presentation/page/main_page/main_page.dart'
 import 'package:fam_flutter_storyapp/presentation/page/maps_page/maps_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/register_page/register_page.dart';
 import 'package:fam_flutter_storyapp/presentation/page/settings_page/settings_page.dart';
+import 'package:fam_flutter_storyapp/support/app_dialog_action_v2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -86,6 +87,10 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
       //     ),
       // ],
       onPopPage: (route, result) {
+        debugPrint('route apa ${route.settings}');
+        if (callPopup == true) {
+          return false;
+        }
         final didPop = route.didPop(result);
         if (!didPop) {
           return false;
@@ -96,6 +101,7 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
         isSettings = false;
         isMapsOpen = false;
         idStory = null;
+        // callPopup = false;
         notifyListeners();
 
         return true;
@@ -105,6 +111,7 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
 
   @override
   PageConfiguration? get currentConfiguration {
+    debugPrint('this is current config');
     if (isLoggedIn == null) {
       return PageConfiguration.splash();
     } else if (isRegister == true) {
@@ -117,6 +124,14 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
       return PageConfiguration.home();
     } else if (idStory != null) {
       return PageConfiguration.detailStory(idStory!);
+    } else if (callPopup == true) {
+      return PageConfiguration.popupPage(
+        unknown: false,
+        register: isRegister!,
+        loggedIn: isLoggedIn,
+        idStory: idStory,
+        callPopup: callPopup!,
+      );
     } else {
       return null;
     }
@@ -127,6 +142,7 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
 
   @override
   Future<void> setNewRoutePath(PageConfiguration configuration) async {
+    debugPrint('this is setNewRoutePath');
     if (configuration.isUnknownPage) {
       isUnknownPage = true;
       isRegister = false;
@@ -173,6 +189,13 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
               isRegister = true;
               notifyListeners();
             },
+            callbackPopup: (title, desc, titleButton) {
+              callPopup = true;
+              popupTitle = title;
+              popupDesc = desc;
+              popupTitleButton = titleButton;
+              notifyListeners();
+            },
           ),
         ),
         if (isRegister == true)
@@ -187,11 +210,34 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
                 isRegister = false;
                 notifyListeners();
               },
+              callbackPopup: (title, desc, titleButton) {
+                isRegister = true;
+                callPopup = true;
+                popupTitle = title;
+                popupDesc = desc;
+                popupTitleButton = titleButton;
+                notifyListeners();
+              },
             ),
+          ),
+        if (callPopup == true)
+          PopupPage(
+            title: popupTitle!,
+            desc: popupDesc!,
+            buttonCallback: () {
+              callPopup = false;
+              notifyListeners();
+            },
+            buttonTitle: popupTitleButton!,
           ),
       ];
 
   BuildContext? savedGetAllStoryBlocContext;
+  bool? callPopup = false;
+
+  String? popupTitle;
+  String? popupDesc;
+  String? popupTitleButton;
 
   List<Page> get _loginStack => [
         MaterialPage(
@@ -223,6 +269,14 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
             child: AddStoryPage(
               callbackGetAlamat: alamat,
               callbackGetLatLong: latLng,
+              callbackPopup: (title, desc, titleButton) {
+                isAddStory = true;
+                callPopup = true;
+                popupTitle = title;
+                popupDesc = desc;
+                popupTitleButton = titleButton;
+                notifyListeners();
+              },
               onBack: () {
                 isAddStory = false;
                 alamat = null;
@@ -273,9 +327,19 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNot
               },
             ),
           ),
+        if (callPopup == true)
+          PopupPage(
+            title: popupTitle!,
+            desc: popupDesc!,
+            buttonCallback: () {
+              isAddStory = true;
+              callPopup = false;
+              notifyListeners();
+            },
+            buttonTitle: popupTitleButton!,
+          ),
       ];
 }
-
 
 // import 'package:fam_flutter_storyapp/presentation/handler/app_config.dart';
 // import 'package:flutter/material.dart';

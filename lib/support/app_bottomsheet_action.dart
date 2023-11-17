@@ -108,16 +108,6 @@ class AppBottomSheetAction {
                             fontSize: 20.sp,
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            // untuk menutup bottomsheet
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.close,
-                            size: 32.h,
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(height: 12.h),
@@ -211,16 +201,6 @@ class AppBottomSheetAction {
                                     color: const Color(0xff1D2129),
                                     fontWeight: FontWeight.w600,
                                     fontSize: 20.sp,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    // untuk menutup bottomsheet
-                                    Navigator.pop(context);
-                                  },
-                                  child: Icon(
-                                    Icons.close,
-                                    size: 32.h,
                                   ),
                                 ),
                               ],

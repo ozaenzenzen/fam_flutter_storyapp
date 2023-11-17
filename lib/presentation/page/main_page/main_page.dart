@@ -341,6 +341,21 @@ class _MainPageState extends State<MainPage> {
               backgroundColor: AppColor.primary,
               onPressed: () {
                 widget.onAddStory?.call(contextFromBloc);
+                // Navigator.push(
+                //   context,
+                // DialogRoute(
+                //   // settings: this,
+                //   barrierDismissible: true,
+                //   barrierColor: Colors.black87,
+                //   builder: (BuildContext context) {
+                //     return PopupPage(
+                //       title: "title",
+                //       desc: "desc",
+                //     );
+                //   },
+                //   context: context,
+                // ),
+                // );
               },
               tooltip: 'Increment',
             ),

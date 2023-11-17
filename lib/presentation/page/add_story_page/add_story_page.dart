@@ -11,7 +11,6 @@ import 'package:fam_flutter_storyapp/presentation/widget/app_screen_loading_widg
 import 'package:fam_flutter_storyapp/presentation/widget/app_secondarybutton_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_textfield_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
-import 'package:fam_flutter_storyapp/support/app_dialog_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,6 +24,7 @@ class AddStoryPage extends StatefulWidget {
   final String? callbackGetAlamat;
   final LatLng? callbackGetLatLong;
   final Function()? onBack;
+  final Function(String title, String desc, String titleButton)? callbackPopup;
   final Function(BuildContext context)? actionCallback;
   final Function()? onMapsOpen;
 
@@ -33,6 +33,7 @@ class AddStoryPage extends StatefulWidget {
     this.callbackGetAlamat,
     this.callbackGetLatLong,
     this.onBack,
+    this.callbackPopup,
     this.actionCallback,
     this.onMapsOpen,
   });
@@ -100,12 +101,17 @@ class _AddStoryPageState extends State<AddStoryPage> {
                         AppSecondaryButtonWidget(
                           onPressed: () {
                             if (EnvironmentConfig.flavor != Flavor.production) {
-                              AppDialogAction.showFailedPopup(
-                                context: context,
-                                title: AppLocalizations.of(context)!.textTitlePopupFailed,
-                                description: AppLocalizations.of(context)!.descBuildVariantWarning,
-                                buttonTitle: AppLocalizations.of(context)!.btnBack,
+                              widget.callbackPopup?.call(
+                                AppLocalizations.of(context)!.textTitlePopupFailed,
+                                AppLocalizations.of(context)!.descBuildVariantWarning,
+                                AppLocalizations.of(context)!.btnBack,
                               );
+                              // AppDialogAction.showFailedPopup(
+                              //   context: context,
+                              //   title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                              //   description: AppLocalizations.of(context)!.descBuildVariantWarning,
+                              //   buttonTitle: AppLocalizations.of(context)!.btnBack,
+                              // );
                             } else {
                               widget.onMapsOpen?.call();
                             }
@@ -205,15 +211,20 @@ class _AddStoryPageState extends State<AddStoryPage> {
                             return AppMainButtonWidget(
                               onPressed: () {
                                 if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
-                                  AppDialogAction.showFailedPopup(
-                                    context: context,
-                                    // title: "Something's wrong",
-                                    // description: "Some field required is not filled",
-                                    // buttonTitle: "Back",
-                                    title: AppLocalizations.of(context)!.textTitlePopupFailed,
-                                    description: AppLocalizations.of(context)!.textDescriptionPopupFailed1,
-                                    buttonTitle: AppLocalizations.of(context)!.btnBack,
+                                  widget.callbackPopup?.call(
+                                    AppLocalizations.of(context)!.textTitlePopupFailed,
+                                    AppLocalizations.of(context)!.textDescriptionPopupFailed1,
+                                    AppLocalizations.of(context)!.btnBack,
                                   );
+                                  // AppDialogAction.showFailedPopup(
+                                  //   context: context,
+                                  //   // title: "Something's wrong",
+                                  //   // description: "Some field required is not filled",
+                                  //   // buttonTitle: "Back",
+                                  //   title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                                  //   description: AppLocalizations.of(context)!.textDescriptionPopupFailed1,
+                                  //   buttonTitle: AppLocalizations.of(context)!.btnBack,
+                                  // );
                                 } else {
                                   addStoryBloc.add(
                                     ActionAddStory(
@@ -237,15 +248,20 @@ class _AddStoryPageState extends State<AddStoryPage> {
                             return AppMainButtonWidget(
                               onPressed: () {
                                 if (imageChosen == null || descriptionTextFieldController.text.isEmpty) {
-                                  AppDialogAction.showFailedPopup(
-                                    context: context,
-                                    // title: "Something's wrong",
-                                    // description: "Some field required is not filled",
-                                    // buttonTitle: "Back",
-                                    title: AppLocalizations.of(context)!.textTitlePopupFailed,
-                                    description: AppLocalizations.of(context)!.textDescriptionPopupFailed1,
-                                    buttonTitle: AppLocalizations.of(context)!.btnBack,
+                                  widget.callbackPopup?.call(
+                                    AppLocalizations.of(context)!.textTitlePopupFailed,
+                                    AppLocalizations.of(context)!.textDescriptionPopupFailed1,
+                                    AppLocalizations.of(context)!.btnBack,
                                   );
+                                  // AppDialogAction.showFailedPopup(
+                                  //   context: context,
+                                  //   // title: "Something's wrong",
+                                  //   // description: "Some field required is not filled",
+                                  //   // buttonTitle: "Back",
+                                  //   title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                                  //   description: AppLocalizations.of(context)!.textDescriptionPopupFailed1,
+                                  //   buttonTitle: AppLocalizations.of(context)!.btnBack,
+                                  // );
                                 } else {
                                   addStoryBloc.add(
                                     ActionAddStory(
@@ -293,14 +309,19 @@ class _AddStoryPageState extends State<AddStoryPage> {
         },
         listener: (context, state) {
           if (state is AddStoryFailed) {
-            AppDialogAction.showFailedPopup(
-              context: context,
-              // title: "Something's wrong",
-              title: AppLocalizations.of(context)!.textTitlePopupFailed,
-              description: state.errorMessage,
-              // buttonTitle: "Back",
-              buttonTitle: AppLocalizations.of(context)!.btnBack,
+            widget.callbackPopup?.call(
+              AppLocalizations.of(context)!.textTitlePopupFailed,
+              state.errorMessage,
+              AppLocalizations.of(context)!.btnBack,
             );
+            // AppDialogAction.showFailedPopup(
+            //   context: context,
+            //   // title: "Something's wrong",
+            //   title: AppLocalizations.of(context)!.textTitlePopupFailed,
+            //   description: state.errorMessage,
+            //   // buttonTitle: "Back",
+            //   buttonTitle: AppLocalizations.of(context)!.btnBack,
+            // );
           }
           if (state is AddStorySuccess) {
             widget.actionCallback?.call(context);

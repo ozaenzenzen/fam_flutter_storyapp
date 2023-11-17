@@ -7,7 +7,6 @@ import 'package:fam_flutter_storyapp/presentation/widget/app_screen_loading_widg
 import 'package:fam_flutter_storyapp/presentation/widget/app_textfield_widget.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_version_widget.dart';
 import 'package:fam_flutter_storyapp/support/app_color.dart';
-import 'package:fam_flutter_storyapp/support/app_dialog_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,11 +16,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LoginPage extends StatefulWidget {
   final Function()? onLogin;
   final Function()? onRegister;
+  final Function(String title, String desc, String titleButton)? callbackPopup;
 
   const LoginPage({
     super.key,
     this.onLogin,
     this.onRegister,
+    this.callbackPopup,
   });
 
   @override
@@ -125,15 +126,20 @@ class _LoginPageState extends State<LoginPage> {
                         AppMainButtonWidget(
                           onPressed: () {
                             if (emailTextFieldController.text.isEmpty || passwordTextFieldController.text.isEmpty) {
-                              AppDialogAction.showFailedPopup(
-                                context: context,
-                                // title: "Something's wrong",
-                                // description: "There's still empty field",
-                                // buttonTitle: 'Back',
-                                title: AppLocalizations.of(context)!.textTitlePopupFailed,
-                                description: AppLocalizations.of(context)!.textDescriptionPopupFailed2,
-                                buttonTitle: AppLocalizations.of(context)!.btnBack,
+                              widget.callbackPopup?.call(
+                                AppLocalizations.of(context)!.textTitlePopupFailed,
+                                AppLocalizations.of(context)!.textDescriptionPopupFailed2,
+                                AppLocalizations.of(context)!.btnBack,
                               );
+                              // AppDialogAction.showFailedPopup(
+                              //   context: context,
+                              //   // title: "Something's wrong",
+                              //   // description: "There's still empty field",
+                              //   // buttonTitle: 'Back',
+                              //   title: AppLocalizations.of(context)!.textTitlePopupFailed,
+                              //   description: AppLocalizations.of(context)!.textDescriptionPopupFailed2,
+                              //   buttonTitle: AppLocalizations.of(context)!.btnBack,
+                              // );
                             } else {
                               context.read<LoginBloc>().add(
                                     ActionLogin(
@@ -195,14 +201,19 @@ class _LoginPageState extends State<LoginPage> {
       },
       listener: (context, state) {
         if (state is LoginFailed) {
-          AppDialogAction.showFailedPopup(
-            context: context,
-            // title: "Something's wrong",
-            title: AppLocalizations.of(context)!.textTitlePopupFailed,
-            description: state.errorMessage,
-            // buttonTitle: "Back",
-            buttonTitle: AppLocalizations.of(context)!.btnBack,
+          widget.callbackPopup?.call(
+            AppLocalizations.of(context)!.textTitlePopupFailed,
+            state.errorMessage,
+            AppLocalizations.of(context)!.btnBack,
           );
+          // AppDialogAction.showFailedPopup(
+          //   context: context,
+          //   // title: "Something's wrong",
+          //   title: AppLocalizations.of(context)!.textTitlePopupFailed,
+          //   description: state.errorMessage,
+          //   // buttonTitle: "Back",
+          //   buttonTitle: AppLocalizations.of(context)!.btnBack,
+          // );
         }
         if (state is LoginSuccess) {
           widget.onLogin?.call();

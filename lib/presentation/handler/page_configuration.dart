@@ -3,42 +3,57 @@ class PageConfiguration {
   final bool register;
   final bool? loggedIn;
   final String? idStory;
+  final bool callPopup;
 
   PageConfiguration.splash()
       : unknown = false,
         register = false,
         loggedIn = null,
+        callPopup = false,
         idStory = null;
 
   PageConfiguration.login()
       : unknown = false,
         register = false,
         loggedIn = false,
+        callPopup = false,
         idStory = null;
 
   PageConfiguration.register()
       : unknown = false,
         register = true,
         loggedIn = false,
+        callPopup = false,
         idStory = null;
 
   PageConfiguration.home()
       : unknown = false,
         register = false,
         loggedIn = true,
+        callPopup = false,
         idStory = null;
 
   PageConfiguration.detailStory(String id)
       : unknown = false,
         register = false,
         loggedIn = true,
+        callPopup = false,
         idStory = id;
 
   PageConfiguration.unknown()
       : unknown = true,
         register = false,
         loggedIn = null,
+        callPopup = false,
         idStory = null;
+
+  PageConfiguration.popupPage({
+    required this.unknown,
+    required this.register,
+    required this.loggedIn,
+    required this.idStory,
+    this.callPopup = false,
+  });
 
   bool get isSplashPage => unknown == false && loggedIn == null;
   bool get isLoginPage => unknown == false && loggedIn == false;
@@ -46,6 +61,7 @@ class PageConfiguration {
   bool get isDetailPage => unknown == false && loggedIn == true && idStory != null;
   bool get isRegisterPage => register == true;
   bool get isUnknownPage => unknown == true;
+  bool get isPopupPage => callPopup == true;
 }
 
 
