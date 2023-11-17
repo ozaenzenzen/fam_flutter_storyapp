@@ -1,23 +1,20 @@
-class RegisterRequestModel {
-  String name;
-  String email;
-  String password;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  RegisterRequestModel({
-    required this.name,
-    required this.email,
-    required this.password,
-  });
+part 'register_request_model.g.dart';
 
-  factory RegisterRequestModel.fromJson(Map<String, dynamic> json) => RegisterRequestModel(
-        name: json["name"],
-        email: json["email"],
-        password: json["password"],
-      );
+/// todo-02-04: add this import to insert a generated file
+part 'register_request_model.freezed.dart';
 
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "email": email,
-        "password": password,
-      };
+/// todo-02-01: change this annotation into freezed
+@freezed
+
+/// todo-02-02: change the property and constructor into this code
+class RegisterRequestModel with _$RegisterRequestModel {
+  const factory RegisterRequestModel({
+    required String name,
+    required String email,
+    required String password,
+  }) = _RegisterRequestModel;
+
+  factory RegisterRequestModel.fromJson(Map<String, dynamic> json) => _$RegisterRequestModelFromJson(json);
 }

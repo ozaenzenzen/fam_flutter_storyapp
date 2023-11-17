@@ -1,4 +1,4 @@
-import 'package:fam_flutter_storyapp/data/model/response/get_all_story_response_model.dart';
+import 'package:fam_flutter_storyapp/data/model/response/get_all_story_list_story/get_all_story_list_story.dart';
 import 'package:fam_flutter_storyapp/presentation/page/logout_page/bloc/logout_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/page/main_page/get_all_story_bloc/get_all_story_bloc.dart';
 import 'package:fam_flutter_storyapp/presentation/widget/app_appbar_widget.dart';

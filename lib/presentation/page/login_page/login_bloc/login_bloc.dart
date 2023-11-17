@@ -2,7 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:fam_flutter_storyapp/data/model/request/login_request_model.dart';
-import 'package:fam_flutter_storyapp/data/model/response/login_response_model.dart';
+import 'package:fam_flutter_storyapp/data/model/response/login_response/login_response_model.dart';
 import 'package:fam_flutter_storyapp/data/repository/local/local_repository.dart';
 import 'package:fam_flutter_storyapp/data/repository/remote/account_repository.dart';
 import 'package:fam_flutter_storyapp/domain/entities/user_data_model.dart';

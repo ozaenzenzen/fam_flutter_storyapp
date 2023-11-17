@@ -1,19 +1,19 @@
-class RegisterResponseModel {
-  bool? error;
-  String? message;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  RegisterResponseModel({
-    this.error,
-    this.message,
-  });
+part 'register_response_model.g.dart';
 
-  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) => RegisterResponseModel(
-        error: json["error"],
-        message: json["message"],
-      );
+/// todo-02-04: add this import to insert a generated file
+part 'register_response_model.freezed.dart';
 
-  Map<String, dynamic> toJson() => {
-        "error": error,
-        "message": message,
-      };
+/// todo-02-01: change this annotation into freezed
+@freezed
+
+/// todo-02-02: change the property and constructor into this code
+class RegisterResponseModel with _$RegisterResponseModel {
+  const factory RegisterResponseModel({
+    bool? error,
+    String? message,
+  }) = _RegisterResponseModel;
+
+  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) => _$RegisterResponseModelFromJson(json);
 }

@@ -1,19 +1,19 @@
-class LoginRequestModel {
-  String email;
-  String password;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  LoginRequestModel({
-    required this.email,
-    required this.password,
-  });
+part 'login_request_model.g.dart';
 
-  factory LoginRequestModel.fromJson(Map<String, dynamic> json) => LoginRequestModel(
-        email: json["email"],
-        password: json["password"],
-      );
+/// todo-02-04: add this import to insert a generated file
+part 'login_request_model.freezed.dart';
 
-  Map<String, dynamic> toJson() => {
-        "email": email,
-        "password": password,
-      };
+/// todo-02-01: change this annotation into freezed
+@freezed
+
+/// todo-02-02: change the property and constructor into this code
+class LoginRequestModel with _$LoginRequestModel {
+  const factory LoginRequestModel({
+    required String email,
+    required String password,
+  }) = _LoginRequestModel;
+
+  factory LoginRequestModel.fromJson(Map<String, dynamic> json) => _$LoginRequestModelFromJson(json);
 }
