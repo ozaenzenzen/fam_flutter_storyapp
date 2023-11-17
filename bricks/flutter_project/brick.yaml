@@ -36,31 +36,6 @@ vars:
     description: Your appbar widget name
     default: AppAppBarWidget
     prompt: What is your appbar widget name?
-  addStoryClassName:
-    type: string
-    description: Your addstory class name
-    default: AddStory
-    prompt: What is your addstory class name?
-  loginClassName:
-    type: string
-    description: Your login class name
-    default: Login
-    prompt: What is your login class name?
-  registerClassName:
-    type: string
-    description: Your register class name
-    default: Register
-    prompt: What is your register class name?
-  getAllStoryClassName:
-    type: string
-    description: Your get all story class name
-    default: GetAllStory
-    prompt: What is your get all story class name?
-  getDetailStoryClassName:
-    type: string
-    description: Your get detail story class name
-    default: GetDetailStory
-    prompt: What is your get detail story class name?
   isStateless:
     type: boolean
     description: Make your HomeScreen is Stateless
